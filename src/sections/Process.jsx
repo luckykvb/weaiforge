@@ -1,22 +1,10 @@
 import Reveal from '../components/Reveal'
 
 const steps = [
-  {
-    label: 'Discover',
-    body: 'We audit the workflow, quantify the cost of the problem, and agree on what a win measurably looks like.',
-  },
-  {
-    label: 'Design',
-    body: 'You get a clear architecture — data flow, models, integrations, and guardrails — before a line of production code is written.',
-  },
-  {
-    label: 'Build',
-    body: 'We ship in short increments against your real data, so you see working software early and steer as it takes shape.',
-  },
-  {
-    label: 'Deploy & Support',
-    body: 'We roll it into your operation, train your team, and stay on to monitor, tune, and extend as needs change.',
-  },
+  { label: 'Discover', body: 'Audit the workflow and agree what a win looks like.' },
+  { label: 'Design', body: 'Architecture, models, and guardrails — before code.' },
+  { label: 'Build', body: 'Short increments against real data, steered as it takes shape.' },
+  { label: 'Deploy & Support', body: 'Rolled into your operation. We stay on to tune and extend.' },
 ]
 
 export default function Process() {

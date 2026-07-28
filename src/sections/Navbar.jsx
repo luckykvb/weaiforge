@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { siteConfig } from '../siteConfig'
+import ThemeSwitcher from '../components/ThemeSwitcher'
+import logo from '../assets/logo.png'
 
 export default function Navbar() {
   const [solid, setSolid] = useState(false)
@@ -23,11 +25,7 @@ export default function Navbar() {
     <header className={`nav ${solid ? 'nav--solid' : ''} ${open ? 'nav--open' : ''}`}>
       <div className="container nav__inner">
         <a href="#top" className="nav__logo" aria-label={`${siteConfig.brand} home`}>
-          <span className="nav__mark" aria-hidden="true">
-            <span />
-            <span />
-          </span>
-          {siteConfig.brand}
+          <img src={logo} alt={siteConfig.brand} className="nav__logo-img" />
         </a>
 
         <nav className="nav__links" aria-label="Primary">
@@ -41,6 +39,8 @@ export default function Navbar() {
         <a href={siteConfig.bookingUrl} className="btn btn--primary nav__cta">
           Book a Call
         </a>
+
+        <ThemeSwitcher />
 
         <button
           className="nav__burger"

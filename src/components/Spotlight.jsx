@@ -7,7 +7,7 @@ import { motion, useSpring, useTransform } from 'framer-motion'
 export function Spotlight({
   className = '',
   size = 320,
-  color = 'rgba(120, 150, 255, 0.35)',
+  color = 'rgba(181, 82, 46, 0.22)',
   springOptions = { bounce: 0 },
 }) {
   const containerRef = useRef(null)

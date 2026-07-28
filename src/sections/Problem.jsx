@@ -5,17 +5,17 @@ const problems = [
   {
     icon: 'loop',
     title: 'Work that repeats itself',
-    body: 'Your team re-keys data, chases approvals, and copies information between tools all day. It scales headcount, not output.',
+    body: 'Re-keying data and chasing approvals scales headcount, not output.',
   },
   {
     icon: 'scatter',
     title: 'Data with no line of sight',
-    body: 'Numbers live in spreadsheets, inboxes, and five SaaS dashboards. Nobody can answer a simple question without a fire drill.',
+    body: 'Numbers scattered across tools — no simple question has a fast answer.',
   },
   {
     icon: 'clock',
     title: 'Responses that arrive too late',
-    body: 'Customers and leads wait hours for a reply that a well-built system could have handled correctly in seconds.',
+    body: 'Leads wait hours for what a good system handles in seconds.',
   },
 ]
 

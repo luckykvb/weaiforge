@@ -1,26 +1,27 @@
 import Reveal from '../components/Reveal'
 import Icon from '../components/Icon'
+import { siteConfig } from '../siteConfig'
 
 const points = [
   {
     icon: 'founder',
     title: 'Founder-led, hands-on delivery',
-    body: 'The person who scopes your project is the person who builds it. No account managers, no hand-offs to a junior bench.',
+    body: 'The person who scopes your project builds it. No hand-offs.',
   },
   {
     icon: 'bespoke',
     title: 'Custom-built, not off-the-shelf',
-    body: 'We architect around your data and workflow. You own the system and the code — there is no platform lock-in.',
+    body: 'Architected around your data. You own the system, no lock-in.',
   },
   {
     icon: 'studio',
     title: 'Creative and technical under one roof',
-    body: 'Real production experience in AI video and content, backed by engineering rigor. Rare to find both in one team.',
+    body: 'Real production experience in AI video, backed by engineering rigor.',
   },
   {
     icon: 'ship',
     title: 'Built to ship, then to last',
-    body: 'We optimize for something working in your hands quickly — and for it staying reliable long after launch.',
+    body: 'Working in your hands quickly — and reliable long after launch.',
   },
 ]
 
@@ -29,7 +30,7 @@ export default function WhyUs() {
     <section className="section section--bordered" id="why">
       <div className="container">
         <Reveal className="section__head">
-          <p className="eyebrow">Why Axon</p>
+          <p className="eyebrow">Why {siteConfig.brand}</p>
           <h2 className="section__title">A studio, not a vendor.</h2>
         </Reveal>
 

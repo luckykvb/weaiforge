@@ -5,20 +5,20 @@ const tiers = [
   {
     name: 'Project-Based',
     for: 'One clear problem, one system',
-    body: 'A fixed-scope build with a defined outcome and timeline. Best when you know the bottleneck and want it solved end to end.',
+    body: 'Fixed scope, defined outcome and timeline, solved end to end.',
     points: ['Scoped deliverable', 'Fixed timeline', 'Full handover & docs'],
   },
   {
     name: 'Retainer',
     for: 'Ongoing build & improvement',
-    body: 'A dedicated monthly engagement to ship, maintain, and expand AI systems across your operation as priorities shift.',
+    body: 'A monthly engagement to ship and expand AI systems as priorities shift.',
     points: ['Continuous delivery', 'Priority support', 'Roadmap partnership'],
     featured: true,
   },
   {
     name: 'Enterprise / Custom',
     for: 'Complex or regulated environments',
-    body: 'Deeper integration, security review, and bespoke model work for teams with strict requirements and larger surface area.',
+    body: 'Deeper integration, security review, and bespoke model work.',
     points: ['Security & compliance', 'Private model hosting', 'Dedicated capacity'],
   },
 ]
@@ -31,8 +31,7 @@ export default function Engagement() {
           <p className="eyebrow">Engagement</p>
           <h2 className="section__title">Ways to work together.</h2>
           <p className="section__lead">
-            We scope pricing to the outcome, not a headcount. Start a conversation
-            and we'll recommend the right fit.
+            Pricing scoped to the outcome, not a headcount.
           </p>
         </Reveal>
 

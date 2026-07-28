@@ -1,21 +1,26 @@
 :root {
-  /* ---- Color ---------------------------------------------------------- */
-  --bg: #0a0a0b;
-  --bg-elevated: #111114;
-  --bg-card: #16161a;
-  --bg-card-hover: #1b1b21;
+  /* ---- Color : Terracotta (default) ------------------------------------ */
+  --bg: #ffffff;
+  --bg-rgb: 255, 255, 255;
+  --bg-elevated: #f6e5d6;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f6e5d6;
 
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
+  --border: rgba(32, 48, 45, 0.12);
+  --border-strong: rgba(32, 48, 45, 0.24);
 
-  --text: #f5f6f8;
-  --text-muted: #8a8f98;
-  --text-faint: #5a5f68;
+  --text: #20302d;
+  --text-muted: #4a6a64;
+  --text-faint: rgba(32, 48, 45, 0.45);
 
-  --accent: #4d7cff;
-  --accent-hover: #6b93ff;
-  --accent-dim: rgba(77, 124, 255, 0.14);
-  --accent-glow: rgba(77, 124, 255, 0.35);
+  --accent: #b5522e;
+  --accent-rgb: 181, 82, 46;
+  --accent-hover: #9c4526;
+  --accent-dim: rgba(181, 82, 46, 0.1);
+  --accent-glow: rgba(181, 82, 46, 0.35);
+  --accent-secondary: #e39a6a;
+
+  --grid-line: rgba(32, 48, 45, 0.05);
 
   /* ---- Type ------------------------------------------------------------ */
   --font-display: 'Space Grotesk', system-ui, sans-serif;
@@ -33,7 +38,7 @@
   /* ---- Space ----------------------------------------------------------- */
   --space-section: clamp(5rem, 3.5rem + 7vw, 9rem);
   --gutter: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
-  --max-w: 1200px;
+  --max-w: 1728px;
 
   /* ---- Radius ---------------------------------------------------------- */
   --radius: 10px;
@@ -43,4 +48,79 @@
   /* ---- Motion ---------------------------------------------------------- */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --dur: 0.7s;
+}
+
+/* ---- Color : Slate Indigo (cool, tech-forward, blue accent) ------------- */
+[data-theme='slate'] {
+  --bg: #ffffff;
+  --bg-rgb: 255, 255, 255;
+  --bg-elevated: #f3f4f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #eef0f8;
+
+  --border: rgba(30, 41, 59, 0.1);
+  --border-strong: rgba(30, 41, 59, 0.22);
+
+  --text: #1e2433;
+  --text-muted: #5b6577;
+  --text-faint: rgba(30, 41, 59, 0.45);
+
+  --accent: #3454d1;
+  --accent-rgb: 52, 84, 209;
+  --accent-hover: #28409f;
+  --accent-dim: rgba(52, 84, 209, 0.1);
+  --accent-glow: rgba(52, 84, 209, 0.35);
+  --accent-secondary: #8fa1f5;
+
+  --grid-line: rgba(30, 41, 59, 0.05);
+}
+
+/* ---- Color : Forest Emerald (earthy green, growth/data feel) ----------- */
+[data-theme='forest'] {
+  --bg: #ffffff;
+  --bg-rgb: 255, 255, 255;
+  --bg-elevated: #f1f6f0;
+  --bg-card: #ffffff;
+  --bg-card-hover: #eaf1e8;
+
+  --border: rgba(22, 38, 29, 0.1);
+  --border-strong: rgba(22, 38, 29, 0.22);
+
+  --text: #16261d;
+  --text-muted: #4f6b5a;
+  --text-faint: rgba(22, 38, 29, 0.45);
+
+  --accent: #2f7a53;
+  --accent-rgb: 47, 122, 83;
+  --accent-hover: #245e3f;
+  --accent-dim: rgba(47, 122, 83, 0.1);
+  --accent-glow: rgba(47, 122, 83, 0.35);
+  --accent-secondary: #8fbf9f;
+
+  --grid-line: rgba(22, 38, 29, 0.05);
+}
+
+/* ---- Color : Amber Stone (warm neutral stone, high-contrast ink) ------- */
+[data-theme='amber'] {
+  --bg: #ffffff;
+  --bg-rgb: 255, 255, 255;
+  --bg-elevated: #f6f4ef;
+  --bg-card: #ffffff;
+  --bg-card-hover: #efece3;
+
+  --border: rgba(28, 28, 32, 0.12);
+  --border-strong: rgba(28, 28, 32, 0.24);
+
+  --text: #1c1c20;
+  --text-muted: #605c54;
+  --text-faint: rgba(28, 28, 32, 0.45);
+
+  --accent: #c8791f;
+  --accent-rgb: 200, 121, 31;
+  --accent-hover: #a1611a;
+  --accent-dim: rgba(200, 121, 31, 0.1);
+  --accent-glow: rgba(200, 121, 31, 0.35);
+  --accent-secondary: #e8b768;
+
+  --grid-line: rgba(28, 28, 32, 0.05);
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { getAccentRgb, getStoredTheme, THEME_EVENT } from '../theme'
 
 // Generative "neural field": drifting nodes wired by proximity, with a few
 // slow light trails. Self-contained (no assets), DPR-capped, pauses off-screen,
@@ -20,7 +21,14 @@ export default function HeroCanvas() {
     let running = true
     const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 }
 
-    const ACCENT = [77, 124, 255]
+    const ACCENT = getAccentRgb(getStoredTheme()).split(',').map((n) => Number(n.trim()))
+    const onThemeChange = (e) => {
+      const rgb = getAccentRgb(e.detail.theme).split(',').map((n) => Number(n.trim()))
+      ACCENT[0] = rgb[0]
+      ACCENT[1] = rgb[1]
+      ACCENT[2] = rgb[2]
+    }
+    window.addEventListener(THEME_EVENT, onThemeChange)
 
     function resize() {
       const rect = canvas.getBoundingClientRect()
@@ -76,7 +84,7 @@ export default function HeroCanvas() {
         const fade = Math.sin((t.life / t.max) * Math.PI)
         const grad = ctx.createLinearGradient(t.x, t.y, t.x - t.vx * t.len, t.y - t.vy * t.len)
         grad.addColorStop(0, `rgba(${ACCENT[0]},${ACCENT[1]},${ACCENT[2]},${0.5 * fade})`)
-        grad.addColorStop(1, 'rgba(77,124,255,0)')
+        grad.addColorStop(1, `rgba(${ACCENT[0]},${ACCENT[1]},${ACCENT[2]},0)`)
         ctx.strokeStyle = grad
         ctx.lineWidth = 1.2
         ctx.beginPath()
@@ -122,7 +130,7 @@ export default function HeroCanvas() {
         const twinkle = 0.5 + 0.5 * Math.sin(n.p)
         ctx.beginPath()
         ctx.arc(n.x + px, n.y + py, n.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(200, 214, 255, ${0.25 + twinkle * 0.5})`
+        ctx.fillStyle = `rgba(${ACCENT[0]},${ACCENT[1]},${ACCENT[2]},${0.35 + twinkle * 0.5})`
         ctx.fill()
       }
 
@@ -157,7 +165,7 @@ export default function HeroCanvas() {
       for (const n of nodes) {
         ctx.beginPath()
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(200, 214, 255, 0.5)'
+        ctx.fillStyle = `rgba(${ACCENT[0]},${ACCENT[1]},${ACCENT[2]},0.55)`
         ctx.fill()
       }
     }
@@ -206,6 +214,7 @@ export default function HeroCanvas() {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', onResize)
       window.removeEventListener('pointermove', onMove)
+      window.removeEventListener(THEME_EVENT, onThemeChange)
       io.disconnect()
     }
   }, [])

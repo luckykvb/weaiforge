@@ -1,13 +1,23 @@
+import { useEffect, useState } from 'react'
 import HeroCanvas from '../components/HeroCanvas'
-import { SplineScene } from '../components/SplineScene'
+import ProductShowcase from '../components/ProductShowcase'
 import { Spotlight } from '../components/Spotlight'
 import { siteConfig } from '../siteConfig'
+import { getAccentRgb, getStoredTheme, THEME_EVENT } from '../theme'
 
 export default function Hero() {
+  const [accentRgb, setAccentRgb] = useState(() => getAccentRgb(getStoredTheme()))
+
+  useEffect(() => {
+    const onThemeChange = (e) => setAccentRgb(getAccentRgb(e.detail.theme))
+    window.addEventListener(THEME_EVENT, onThemeChange)
+    return () => window.removeEventListener(THEME_EVENT, onThemeChange)
+  }, [])
+
   return (
     <section className="hero" id="top">
       <HeroCanvas />
-      <Spotlight size={420} color="rgba(120, 150, 255, 0.28)" />
+      <Spotlight size={420} color={`rgba(${accentRgb}, 0.22)`} />
       <div className="hero__fade" aria-hidden="true" />
 
       <div className="container hero__inner">
@@ -22,8 +32,8 @@ export default function Hero() {
           </h1>
 
           <p className="hero__sub">
-            Custom automation, agents, and data intelligence engineered end-to-end
-            for operators who want measurable outcomes — not another dashboard.
+            Automation, agents, and data intelligence — built for operators who
+            want results, not another dashboard.
           </p>
 
           <div className="hero__actions">
@@ -53,10 +63,7 @@ export default function Hero() {
         </div>
 
         <div className="hero__scene">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="hero__spline"
-          />
+          <ProductShowcase />
         </div>
       </div>
 

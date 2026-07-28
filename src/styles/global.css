@@ -31,8 +31,8 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(120% 80% at 50% -10%, rgba(77, 124, 255, 0.06), transparent 60%),
-    radial-gradient(100% 60% at 100% 100%, rgba(77, 124, 255, 0.04), transparent 55%);
+    radial-gradient(120% 80% at 50% -10%, rgba(var(--accent-rgb), 0.05), transparent 60%),
+    radial-gradient(100% 60% at 100% 100%, rgba(var(--accent-rgb), 0.035), transparent 55%);
 }
 
 a {
@@ -74,9 +74,12 @@ h4 {
 /* ---- Layout primitives ------------------------------------------------ */
 .container {
   width: 100%;
+  /* Full-width layout: content spans the viewport with a responsive gutter,
+     capped only on very large screens. Text blocks keep their own max-widths
+     (leads, card copy) so line length stays readable. */
   max-width: var(--max-w);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: clamp(1.25rem, 0.5rem + 3.2vw, 5rem);
   position: relative;
   z-index: 1;
 }
@@ -159,7 +162,7 @@ h4 {
   --btn-bg: var(--accent);
   --btn-fg: #fff;
   --btn-border: var(--accent);
-  box-shadow: 0 0 0 rgba(77, 124, 255, 0);
+  box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 }
 
 .btn--primary:hover {
@@ -169,7 +172,7 @@ h4 {
 
 .btn--ghost:hover {
   --btn-border: var(--border-strong);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--accent-dim);
 }
 
 .btn__arrow {

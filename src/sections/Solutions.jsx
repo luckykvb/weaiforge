@@ -5,27 +5,27 @@ const solutions = [
   {
     icon: 'workflow',
     title: 'Workflow Automation',
-    body: 'We map the manual process, then rebuild it as a reliable pipeline — approvals, hand-offs, and data entry that run without a human babysitting them.',
+    body: 'Manual processes rebuilt as reliable pipelines — no human babysitting.',
   },
   {
     icon: 'agent',
     title: 'AI Agents & Chatbots',
-    body: 'Assistants that actually take action against your tools and data — qualifying leads, answering support, and completing tasks, with guardrails you control.',
+    body: 'Assistants that take real action on your tools and data, with guardrails.',
   },
   {
     icon: 'creative',
     title: 'Content & Creative AI Pipelines',
-    body: 'Production systems for images, video, and copy at volume — brand-consistent output generated, reviewed, and shipped through one repeatable workflow.',
+    body: 'Brand-consistent images, video, and copy at volume, one workflow.',
   },
   {
     icon: 'data',
     title: 'Data & Decision Intelligence',
-    body: 'We unify scattered sources into one model of your business, then surface the metrics and alerts that let you decide fast and act early.',
+    body: 'One model of your business, with alerts on the metrics that matter.',
   },
   {
     icon: 'model',
     title: 'Custom Model Integration',
-    body: 'Fine-tuned and retrieval-backed models wired into your stack — private, evaluated, and tuned to your domain instead of a generic API call.',
+    body: 'Private, fine-tuned models wired into your stack — not a generic API.',
   },
 ]
 
@@ -37,8 +37,7 @@ export default function Solutions() {
           <p className="eyebrow">What we build</p>
           <h2 className="section__title">Five ways we put AI to work.</h2>
           <p className="section__lead">
-            Every engagement starts from a real bottleneck and ends in a system
-            your team owns — not a proof of concept that stalls.
+            Every engagement starts from a real bottleneck and ends in a system you own.
           </p>
         </Reveal>
 

@@ -10,8 +10,8 @@ export default function FinalCTA() {
           <p className="eyebrow cta__eyebrow">Start here</p>
           <h2 className="cta__title">Let's build something.</h2>
           <p className="cta__sub">
-            Bring one real operational problem. In a 30-minute call we'll tell you
-            whether AI is the right tool — and if it is, exactly how we'd approach it.
+            Bring one real problem. In 30 minutes we'll tell you whether AI is the
+            right tool — and how we'd approach it.
           </p>
 
           <div className="cta__actions">

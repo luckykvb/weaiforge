@@ -1,4 +1,5 @@
 import { siteConfig } from '../siteConfig'
+import logo from '../assets/logo.png'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -7,11 +8,7 @@ export default function Footer() {
       <div className="container footer__inner">
         <div className="footer__brand">
           <a href="#top" className="nav__logo footer__logo">
-            <span className="nav__mark" aria-hidden="true">
-              <span />
-              <span />
-            </span>
-            {siteConfig.brand}
+            <img src={logo} alt={siteConfig.brand} className="nav__logo-img" />
           </a>
           <p className="footer__tag">
             AI systems that solve real business problems. Founder-led, custom-built.

@@ -1,13 +1,13 @@
 import Reveal from '../components/Reveal'
+import aboutPhoto from '../assets/about.jpg'
 
 export default function About() {
   return (
     <section className="section section--bordered" id="about">
       <div className="container about__grid">
         <Reveal className="about__portrait">
-          {/* TODO: replace with founder photo — <img src="/founder.jpg" alt="..." /> */}
-          <div className="about__photo" aria-hidden="true">
-            <span className="about__initials">AX</span>
+          <div className="about__photo">
+            <img src={aboutPhoto} alt="" />
           </div>
           <p className="about__caption">Founder &amp; principal engineer</p>
         </Reveal>
@@ -17,18 +17,11 @@ export default function About() {
           <h2 className="about__title">
             Built by someone who's shipped the hard part.
           </h2>
-          {/* TODO: replace with the real founder narrative. */}
           <p className="about__text">
-            Axon is a founder-led studio. I've spent the last several years
-            building AI systems in production — from automated video pipelines to
-            agents that run real operational workflows — for teams who needed
-            results, not research.
-          </p>
-          <p className="about__text">
-            That means I sweat the parts most vendors skip: how the system behaves
-            on messy real-world data, how it fails safely, and how your team keeps
-            it running once the engagement ends. If we work together, you deal with
-            me directly from first call to deploy.
+            Founder-led. I've spent years building AI systems in production —
+            video pipelines, agents, real operational workflows — for teams who
+            needed results, not research. You deal with me directly, start to
+            deploy.
           </p>
           <a href="#contact" className="about__link">
             Let's talk about your problem
