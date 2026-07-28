@@ -23,7 +23,7 @@
   --grid-line: rgba(32, 48, 45, 0.05);
 
   /* ---- Type ------------------------------------------------------------ */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Titillium Web', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 

@@ -121,6 +121,7 @@
   background: var(--accent-dim);
   font-weight: 500;
 }
+
 .nav__burger {
   display: none;
   flex-direction: column;
