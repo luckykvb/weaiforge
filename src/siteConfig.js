@@ -12,6 +12,7 @@ export const siteConfig = {
 
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/weaiforge/' },
+    { label: 'Instagram', href: 'https://www.instagram.com/weaiforge/' },
   ],
 
   nav: [
