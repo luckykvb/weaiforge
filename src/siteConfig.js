@@ -11,9 +11,7 @@ export const siteConfig = {
   contactEmail: 'weaiforge@gmail.com',
 
   social: [
-    { label: 'X', href: '#' },
-    { label: 'LinkedIn', href: '#' },
-    { label: 'GitHub', href: '#' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/weaiforge/' },
   ],
 
   nav: [
