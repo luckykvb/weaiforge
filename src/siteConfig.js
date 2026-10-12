@@ -17,6 +17,9 @@ export const siteConfig = {
       "Hi WeAIForge,\n\nI'd like to book a discovery call.\n\nName:\nCompany:\nThe problem we want to solve:\nPreferred times:\n",
     ),
 
+  // Standalone service pages (own URL, own search ranking).
+  pages: [{ label: 'AI Agents', href: '/ai-agents' }],
+
   legal: [
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms of Service', href: '/terms' },

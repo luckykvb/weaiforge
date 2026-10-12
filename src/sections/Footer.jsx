@@ -22,6 +22,11 @@ export default function Footer() {
               {item.label}
             </a>
           ))}
+          {siteConfig.pages.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
         </nav>
 
         <div className="footer__connect">

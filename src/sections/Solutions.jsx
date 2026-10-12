@@ -11,6 +11,7 @@ const solutions = [
     icon: 'agent',
     title: 'AI Agents & Chatbots',
     body: 'Assistants that take real action on your tools and data, with guardrails.',
+    href: '/ai-agents',
   },
   {
     icon: 'creative',
@@ -49,6 +50,11 @@ export default function Solutions() {
               </span>
               <h3 className="solutions__title">{s.title}</h3>
               <p className="solutions__body">{s.body}</p>
+              {s.href && (
+                <a href={s.href} className="solutions__link">
+                  Learn more <span aria-hidden="true">→</span>
+                </a>
+              )}
             </Reveal>
           ))}
           <Reveal className="solutions__cta" delay={160}>

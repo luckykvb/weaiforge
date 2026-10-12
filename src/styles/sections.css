@@ -582,6 +582,10 @@
   font-weight: 500;
   transition: gap 0.2s var(--ease);
 }
+.solutions__card .solutions__link {
+  margin-top: 1rem;
+  font-size: var(--step--1);
+}
 .solutions__link:hover {
   gap: 0.85em;
 }
@@ -1254,4 +1258,116 @@
 .legal__footer {
   margin-top: 1rem;
   padding-bottom: 2.5rem;
+}
+
+/* =====================================================================
+   SERVICE PAGES
+   ===================================================================== */
+.svc {
+  max-width: 880px;
+  padding-block: clamp(3rem, 2rem + 4vw, 6rem);
+}
+.svc__title {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0.75rem 0 1rem;
+}
+.svc__lead,
+.svc__text {
+  color: var(--text-muted);
+  font-size: var(--step-0);
+  max-width: 62ch;
+}
+.svc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.75rem;
+}
+.svc__section {
+  margin-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+}
+.svc__section h2,
+.svc__cta h2 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  margin-bottom: 1rem;
+}
+.svc__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.svc__card {
+  padding: 1.4rem;
+}
+.svc__card h3,
+.svc__steps h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  margin-bottom: 0.4rem;
+}
+.svc__card p,
+.svc__steps p,
+.svc__faq p {
+  color: var(--text-muted);
+}
+.svc__list {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+  display: grid;
+  gap: 0.5rem;
+}
+.svc__steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: grid;
+  gap: 1.1rem;
+}
+.svc__steps li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.svc__num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  padding-top: 0.35rem;
+}
+.svc__faq {
+  border-top: 1px solid var(--border);
+  padding: 1rem 0;
+}
+.svc__faq:last-of-type {
+  border-bottom: 1px solid var(--border);
+}
+.svc__faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+}
+.svc__faq p {
+  margin-top: 0.6rem;
+}
+.svc__cta {
+  margin-top: clamp(3rem, 2rem + 4vw, 5rem);
+  padding: clamp(1.75rem, 1rem + 3vw, 3rem);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background: var(--bg-elevated);
+}
+.svc__cta p {
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  max-width: 52ch;
+}
+@media (max-width: 640px) {
+  .svc__grid {
+    grid-template-columns: 1fr;
+  }
 }
