@@ -1045,7 +1045,55 @@
   letter-spacing: 0.06em;
   color: var(--text-faint);
 }
+.cta__form {
+  display: grid;
+  gap: 1rem;
+  margin: 2.5rem auto 0;
+  max-width: 560px;
+  text-align: left;
+}
+.cta__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.cta__form label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: var(--step--1);
+  color: var(--text-muted);
+}
+.cta__opt {
+  color: var(--text-faint);
+}
+.cta__form input,
+.cta__form textarea {
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  width: 100%;
+  resize: vertical;
+}
+.cta__form input:focus,
+.cta__form textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.cta__form .btn {
+  justify-self: start;
+  cursor: pointer;
+}
+.cta__sent {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
 @media (max-width: 560px) {
+  .cta__row {
+    grid-template-columns: 1fr;
+  }
   .cta__actions {
     flex-direction: column;
   }
