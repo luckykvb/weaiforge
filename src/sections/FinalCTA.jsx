@@ -24,7 +24,6 @@ export default function FinalCTA() {
             </a>
           </div>
 
-          {/* TODO: drop your Calendly / Cal.com embed here in place of the buttons above. */}
           <p className="cta__note">
             Prefer async? Email works — we reply within one business day.
           </p>

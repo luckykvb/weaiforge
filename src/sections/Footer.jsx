@@ -41,7 +41,13 @@ export default function Footer() {
         <span>
           © {year} {siteConfig.brand}. All rights reserved.
         </span>
-        <span className="footer__signoff">Built for operators.</span>
+        <span className="footer__legal">
+          {siteConfig.legal.map((l) => (
+            <a key={l.href} href={l.href}>
+              {l.label}
+            </a>
+          ))}
+        </span>
       </div>
     </footer>
   )
