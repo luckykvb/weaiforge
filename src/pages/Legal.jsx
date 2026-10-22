@@ -13,7 +13,7 @@ const PAGES = {
         body: [
           'Information you send us. If you email us or book a discovery call, we receive your email address and whatever you choose to share, such as your name, company and a description of your project.',
           'Technical data. Our hosting provider (Vercel) automatically logs standard request data such as IP address, browser type and pages requested, to deliver and secure the site.',
-          'Preferences. The site stores your chosen colour theme in your browser\'s local storage. It stays on your device and is not sent to us.',
+          'Interactive demonstration. The workflow simulation uses synthetic data and runs in your browser. It does not connect to external business systems.',
         ],
       },
       {
@@ -67,7 +67,7 @@ const PAGES = {
       {
         h: 'Information only',
         body: [
-          'The content here describes our services and past work in general terms. It is provided for information, is not a binding offer, and does not create a client relationship. A project begins only when we both agree a scope and terms in writing.',
+          'The content here describes our services and illustrative workflows. It is provided for information, is not a binding offer, and does not create a client relationship. A project begins only when we both agree a scope and terms in writing.',
         ],
       },
       {

@@ -1,68 +1,38 @@
-# Axon — AI Solutions Studio landing site
+# WeAIForge
 
-A single-page marketing site built with **Vite + React**. Dark, engineering-grade
-visual identity with a generative neural-particle hero, scroll reveals, and a
-fully responsive layout.
+Company website for agentic AI delivery and forward-deployed AI engineering.
+Built with React and Vite. No backend or live AI integration is required.
 
-> **Axon** is a placeholder brand. See "Rebranding" below to swap it out.
+## Development
 
-## Run it
-
-```bash
+```sh
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # production bundle → dist/
-npm run preview  # preview the production build
+npm run dev
+npm run build
+npm run preview
 ```
 
-Deploy the `dist/` folder to any static host (Netlify, Vercel, GitHub Pages, S3).
+Deploy `dist/` to a static host. Vercel clean URLs are configured in `vercel.json`.
 
-## Rebranding & content — where to edit
+## Pages
 
-Everything you'll want to change at launch is in a few obvious spots:
+- `/` — company, offerings, workflow simulation, approach, and contact
+- `/ai-agents` — agentic solution entry point
+- `/forward-deployed-engineering` — embedded engineering entry point
+- `/privacy` and `/terms` — legal information
 
-| What | Where |
-|------|-------|
-| Brand name, tagline, contact email, booking URL, nav & social links | `src/siteConfig.js` |
-| Accent color & all design tokens (colors, type scale, spacing, radii) | `src/styles/tokens.css` |
-| Fonts | `index.html` (Google Fonts link) + `--font-*` in `tokens.css` |
-| Case studies (incl. AICines) | `src/sections/CaseStudies.jsx` — search `TODO` |
-| Founder bio & photo | `src/sections/About.jsx` — search `TODO` |
-| Pricing tiers | `src/sections/Engagement.jsx` |
-| Section copy | the matching file in `src/sections/` |
+The two service entry points use the shared site layout with service-specific headlines and descriptions.
 
-Search the codebase for `TODO` to find every placeholder that expects real content
-(founder photo, case-study media, booking embed).
+## Editing
 
-### Swap the booking link
-`bookingUrl` in `src/siteConfig.js` currently points at `#book`. Replace it with your
-Calendly / Cal.com URL, or drop an embed into `src/sections/FinalCTA.jsx` (marked with
-a `TODO`).
+- `src/App.jsx`: active company site, offerings, FAQ, simulation, and enquiry form
+- `src/styles/forge.css`: charcoal and lime visual design and responsive layouts
+- `src/siteConfig.js`: contact details and legal update date
+- `index.html`, `ai-agents.html`, `forward-deployed-engineering.html`: SEO metadata
+- `src/pages/Legal.jsx`: privacy and terms content
 
-## Structure
+The workflow is a manually stepped browser simulation with synthetic data. It does not call a model, connect to a CRM, or send external messages. It is not a client project or a working backend agent. The simulated approval and completion states are illustrative.
 
-```
-src/
-  siteConfig.js         # brand + contact — single source of truth
-  main.jsx              # entry; CSS load order (tokens → global → sections)
-  App.jsx               # section composition
-  components/
-    HeroCanvas.jsx      # generative neural-particle background (self-contained)
-    Icon.jsx            # custom line-icon set
-    Reveal.jsx          # scroll-reveal wrapper
-  hooks/useReveal.js    # IntersectionObserver reveal (respects reduced-motion)
-  sections/             # one file per page section
-  styles/
-    tokens.css          # design tokens (edit here to re-theme)
-    global.css          # base + shared component rules (.btn, .card, .reveal)
-    sections.css        # per-section styles (loaded last so its rules win)
-```
+Contact enquiries open a populated email draft; visitors must send it through their email app. There is no form submission service or calendar integration.
 
-## Notes
-
-- **Accessibility:** visible keyboard focus, `aria` labels on interactive controls,
-  and `prefers-reduced-motion` disables the canvas animation and scroll reveals.
-- **Performance:** the hero canvas caps device-pixel-ratio and pauses when scrolled
-  out of view. No external assets beyond the web fonts.
-- **CSS load order matters** — `main.jsx` imports `tokens → global → sections` so
-  section media queries correctly override the shared `.btn`/`.card` rules.
+Legacy components in `src/sections` and `src/components` are retained but are not rendered by the new company site.

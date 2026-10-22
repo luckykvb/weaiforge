@@ -1,31 +1,63 @@
-import Navbar from './sections/Navbar'
-import Hero from './sections/Hero'
-import Problem from './sections/Problem'
-import Solutions from './sections/Solutions'
-import Process from './sections/Process'
-import CaseStudies from './sections/CaseStudies'
-import WhyUs from './sections/WhyUs'
-import About from './sections/About'
-import Engagement from './sections/Engagement'
-import FinalCTA from './sections/FinalCTA'
-import Footer from './sections/Footer'
+import { useEffect, useState } from 'react'
+import { siteConfig } from './siteConfig'
 
+const Arrow = () => <span aria-hidden="true">↗</span>
+function Mark() { return <a className="wordmark" href="/" aria-label="WeAIForge home"><span className="brand-icon" aria-hidden="true">⌘</span> weai<span>forge</span><i /></a> }
+const stages = [
+  ['01', 'Receive', 'An order needs attention.', 'Order #1042 is delayed. Check the shipment and prepare a customer update.', 'REQUEST RECEIVED'],
+  ['02', 'Retrieve', 'Connect the relevant context.', 'Sample CRM: customer found. Sample shipping record: delivery moved to Friday.', 'CONTEXT RETRIEVED'],
+  ['03', 'Reason', 'Choose an action within bounds.', 'Prepare a revised delivery update. External messages require a person’s approval.', 'ACTION PROPOSED'],
+  ['04', 'Approve', 'Keep a person in control.', 'Draft: “Your order is now expected Friday.” Review the proposed message before continuing.', 'AWAITING APPROVAL'],
+  ['05', 'Complete', 'Close the loop. Leave a trace.', 'Simulation complete: message marked approved, mock record updated, action logged. No external message was sent.', 'ACTION LOGGED'],
+]
+function Workflow({ compact = false }) {
+  const [step, setStep] = useState(0)
+  return <div className={`workflow ${compact ? 'workflow--compact' : ''}`}>
+    <div className="window-bar"><span><b className="status-dot" /> OPERATIONS AGENT</span><span>SIMULATION / 01</span></div>
+    <div className="workflow-canvas"><div className="flow-source"><span>↳</span> Incoming order exception <small>SYNTHETIC INPUT</small></div>
+      <div className="flow-line" /><div className="agent-core"><span className="core-icon">✳</span><div><small>WEAIFORGE / AGENT</small><strong>Context. Reasoning. Action.</strong></div><span className="core-light" /></div>
+      <div className="tool-branches"><span>↳ CRM context</span><span>↳ Shipping data</span><span>↳ Approval gate</span></div>
+      <div className="flow-line" /><div className="flow-output"><span className="status-dot" /> {stages[step][4]} <span>{stages[step][0]} / 05</span></div>
+    </div>
+    {!compact && <><div className="step-tabs" aria-label="Workflow stages">{stages.map((s,i)=><button key={s[0]} onClick={()=>setStep(i)} aria-pressed={step===i} className={step===i?'active':''}><small>{s[0]}</small>{s[1]}</button>)}</div><div className="step-detail" aria-live="polite"><small>STEP {stages[step][0]}</small><h3>{stages[step][2]}</h3><p>{stages[step][3]}</p><button className="text-link" onClick={()=>setStep(step===4?0:step+1)}>{step===3?'Approve simulated action':step===4?'Restart walkthrough':'Next step'} <span>→</span></button></div></>}
+    <div className="window-foot"><span>ILLUSTRATIVE REFERENCE WORKFLOW</span><span>NO LIVE INTEGRATIONS</span></div>
+  </div>
+}
+const process = [
+  ['Discover', 'Start with the right problem.', 'Map the workflow, data, constraints, and business outcome.', 'Workflow map + success criteria'],
+  ['Prototype', 'Make the idea tangible.', 'Build a focused prototype with an agreed data sample.', 'Working prototype + feasibility findings'],
+  ['Build & evaluate', 'Test against the real work.', 'Connect tools, define permissions, and evaluate quality, latency, and cost.', 'Integrations + evaluation results'],
+  ['Deploy', 'Bring it into your environment.', 'Plan rollout, configure monitoring, and document recovery and handover.', 'Deployment + operating documentation'],
+  ['Improve', 'Keep learning after launch.', 'Review real usage and refine the system through agreed ongoing support.', 'Performance reviews + improvement backlog'],
+]
+const faqs = [
+ ['What is agentic AI?', 'AI agents combine models, business context, and tools to carry out multi-step work. We scope what each agent can do, when it needs approval, and how it hands work back to a person.'],
+ ['What does a forward-deployed engineer do?', 'A forward-deployed AI engineer works directly with your engineers and operators: understanding the workflow, implementing integrations, evaluating behavior, and owning agreed delivery milestones. Allocation, working hours, and remote or on-site arrangements are defined in the engagement.'],
+ ['Can we start with an idea?', 'Yes. A discovery and prototype engagement helps identify a useful workflow, test feasibility, and define a production plan before committing to a larger build.'],
+ ['Are the demonstrations client projects?', 'No. The workflow on this site is an interactive illustration using synthetic information. It does not call live models or external tools and is not presented as a client deployment.'],
+ ['Who owns the code and system?', 'Code ownership, infrastructure access, documentation, and handover are agreed in writing before work begins. We design engagements around a system your team can operate and extend.'],
+]
+function Contact() {
+ const [prepared,setPrepared]=useState(false)
+ return <section id="contact" className="contact-section"><div className="contact-copy"><p className="eyebrow">06 / LET’S BUILD</p><h2>Bring the idea.<br/><span>Let’s make it work.</span></h2><p>A workflow to improve. A prototype to deploy. A roadmap that needs an engineer. Tell us where you are.</p><a className="text-link" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail} <Arrow/></a></div><form onSubmit={e=>{e.preventDefault();const f=new FormData(e.currentTarget);window.location.href=`mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(`${f.get('interest')} enquiry from ${f.get('name')}`)}&body=${encodeURIComponent(`Name: ${f.get('name')}\nEmail: ${f.get('email')}\nInterest: ${f.get('interest')}\n\n${f.get('message')}`)}`;setPrepared(true)}}><div className="form-pair"><label>Your name<input required name="name" autoComplete="name" placeholder="Alex Taylor"/></label><label>Work email<input required type="email" name="email" autoComplete="email" placeholder="alex@company.com"/></label></div><label>How can we help?<select name="interest"><option>Build an agentic solution</option><option>Embed an AI engineer</option><option>Discovery & prototype</option></select></label><label>What would you like to build?<textarea required name="message" rows="3" placeholder="Tell us about the workflow, your team, or your idea…"/></label><button className="button primary" type="submit">Prepare project enquiry <Arrow/></button><p className="form-note" role="status">{prepared?'Your draft is ready in your email app. Send it there to contact us.':'Opens a draft in your email app. Nothing is sent automatically.'}</p></form></section>
+}
 export default function App() {
-  return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <Problem />
-        <Solutions />
-        <Process />
-        <CaseStudies />
-        <WhyUs />
-        <About />
-        <Engagement />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </>
-  )
+ const [menu,setMenu]=useState(false)
+ const detail=location.pathname.includes('forward-deployed')?'engineering':location.pathname.includes('ai-agents')?'agents':null
+ useEffect(()=>{document.documentElement.removeAttribute('data-theme')},[])
+ const home=detail?'/':''
+ return <div className="forge"><a className="skip-link" href="#main">Skip to content</a><header className="site-header"><Mark/><nav className={menu?'open':''} aria-label="Primary">{[['Solutions','#solutions'],['Embedded engineering','#engineering'],['Demo','#demo'],['Our approach','#approach']].map(([label,url])=><a key={url} href={home+url} onClick={()=>setMenu(false)}>{label}</a>)}</nav><a className="header-cta" href={home+'#contact'}>Let’s talk <Arrow/></a><button className="menu-toggle" aria-expanded={menu} aria-label="Toggle navigation" onClick={()=>setMenu(!menu)}>{menu?'Close':'Menu'} <span>{menu?'−':'+'}</span></button></header>
+ <main id="main">
+ <section className="hero-section"><div className="hero-copy"><p className="eyebrow"><span className="status-dot"/> AGENTIC SYSTEMS & FORWARD-DEPLOYED ENGINEERING</p><h1>{detail==='engineering'?<>AI engineering.<br/><span>Inside your team.</span></>:detail==='agents'?<>Your workflow.<br/><span>Agent-powered.</span></>:<>Agentic AI.<br/>From idea to<br/><span>production.</span></>}</h1><p className="hero-description">{detail==='engineering'?'Bring dedicated AI engineering into your team. We work alongside your engineers and operators to turn your roadmap into deployed agentic systems.':'We design, build, and deploy AI agents around your business. Engage us to own the delivery, or embed AI engineering directly into your team.'}</p><div className="hero-buttons"><a href="#contact" className="button primary">Discuss your project <Arrow/></a><a href="#demo" className="button secondary"><span aria-hidden="true">▷</span> Explore the workflow</a></div><div className="hero-caption"><span>YOUR WORKFLOWS.</span><span>YOUR ENVIRONMENT.</span><span>BUILT TO OPERATE.</span></div></div><div className="hero-visual"><div className="visual-caption"><span>FROM INTENT TO EXECUTION</span><span>FIG. 01 ↙</span></div><Workflow compact/><p className="visual-note"><span>↳</span> An illustration of how an agent turns context into controlled action.</p></div></section>
+ <div className="capability-strip"><span>BUILT AROUND YOUR BUSINESS</span><div>Agents & orchestration <i>+</i> Tools & integrations <i>+</i> Evaluations & controls <i>+</i> Deployment & operation</div></div>
+ <section id="solutions" className="section-block"><div className="section-heading"><p className="eyebrow">01 / TWO WAYS TO BUILD</p><h2>The outcome you need.<br/><span>The way you work.</span></h2><p>A complete solution or engineering embedded in your team. Start with the model that fits your business.</p></div><div className="offering-grid"><article className="offering"><div className="offering-top"><span className="offer-icon">⌁</span><span>01 / END-TO-END DELIVERY</span></div><h3>Build an agentic<br/>solution.</h3><p>From an early idea to a system in your environment. We scope the workflow, build the agent, connect your tools, and prepare it for real use.</p><ul><li>Opportunity discovery & solution design</li><li>Agent development & system integrations</li><li>Evaluation, deployment & handover</li></ul><a className="text-link" href="/ai-agents">Explore agentic solutions <Arrow/></a></article><article className="offering offering-accent" id="engineering"><div className="offering-top"><span className="offer-icon">↗</span><span>02 / EMBEDDED ENGINEERING</span></div><h3>Extend your team.<br/>Ship your roadmap.</h3><p>Forward-deployed AI engineering alongside your people. Direct collaboration, hands-on implementation, and ownership of agreed delivery milestones.</p><ul><li>Work within your tools & delivery process</li><li>Collaborate with engineers & operators</li><li>Regular demos, documentation & knowledge transfer</li></ul><a className="text-link" href="/forward-deployed-engineering">Explore embedded engineering <Arrow/></a></article></div></section>
+ <section className="use-cases section-block"><p className="eyebrow">WHAT WE CAN BUILD WITH YOU</p><div className="use-case-grid">{[['01','Operations agents','Triage requests, investigate exceptions, and route actions across your business systems.'],['02','Knowledge & research','Find relevant information, compare sources, and prepare answers grounded in your data.'],['03','Document workflows','Extract, check, and route information from incoming documents, with review where it matters.']].map(([n,t,p])=><article key={n}><span>{n} ↗</span><h3>{t}</h3><p>{p}</p></article>)}</div><p className="small-note">Illustrative use cases. Scope and feasibility are established during discovery.</p></section>
+ <section id="demo" className="demo-section section-block"><div className="demo-copy"><p className="eyebrow">02 / ENGINEERING IN ACTION</p><span className="outline-label">INTERACTIVE WORKFLOW CONCEPT</span><h2>See the steps.<br/><span>Understand the system.</span></h2><p>Follow an operations agent as it investigates a delayed order, gathers context, and proposes an update for human approval.</p><p>This browser-based simulation uses synthetic data. It demonstrates the workflow and control points; it is not a live AI agent or a client deployment.</p><div className="demo-facts"><div><span>INPUT</span><strong>Order exception</strong></div><div><span>CONTROL</span><strong>Human approval</strong></div><div><span>OUTPUT</span><strong>Update + action log</strong></div></div></div><Workflow/></section>
+ <section id="approach" className="section-block approach-section"><div className="section-heading"><p className="eyebrow">03 / IDEA → PRODUCTION</p><h2>A clear path.<br/><span>A tangible deliverable at every step.</span></h2></div><div className="process-list">{process.map(([t,h,p,o],i)=><article key={t}><span className="process-number">0{i+1}</span><h3>{t}</h3><div><h4>{h}</h4><p>{p}</p></div><span className="deliverable"><small>DELIVERABLE</small>{o}</span></article>)}</div></section>
+ <section className="production-section section-block"><div><p className="eyebrow">04 / BUILT FOR REAL WORK</p><h2>Production is<br/><span>part of the plan.</span></h2><p>Useful agents need more than a model. We design the boundaries, feedback loops, and operating foundations alongside the workflow.</p><a className="text-link" href="#contact">Talk through your requirements <Arrow/></a></div><div className="production-grid">{[['⊞','Connected to your systems','Integrations with the tools, data, and identity your workflow needs.'],['⊙','Evaluated against your work','Agreed test cases and success criteria, with quality and cost made visible.'],['⌑','Controlled actions','Scoped access, approval checkpoints, and escalation paths.'],['↻','Ready to operate','Monitoring, recovery planning, documentation, and agreed support.']].map(([s,t,p])=><article key={t}><span>{s}</span><h3>{t}</h3><p>{p}</p></article>)}</div></section>
+ <section className="starter-section"><div><p className="eyebrow">A FOCUSED FIRST ENGAGEMENT</p><h2>Start with one workflow.</h2><p>A scoped discovery and prototype to test the opportunity before a larger build.</p></div><div><ul><li>Workflow map & success criteria</li><li>Prototype with an agreed data sample</li><li>Feasibility, limitations & cost assessment</li><li>Separately scoped production plan</li></ul><a href="#contact" className="button primary">Scope a prototype <Arrow/></a></div></section>
+ <section className="faq-section section-block"><div><p className="eyebrow">05 / A FEW USEFUL ANSWERS</p><h2>Before we build.</h2></div><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
+ <Contact/>
+ </main><footer className="site-footer"><div><Mark/><p>Agentic systems. Built to work.</p></div><div><a href="/ai-agents">Agentic solutions</a><a href="/forward-deployed-engineering">Forward-deployed engineering</a><a href="/#contact">Contact</a></div><div><a href="/privacy">Privacy policy</a><a href="/terms">Terms of service</a><span>© {new Date().getFullYear()} WeAIForge</span></div></footer>
+ </div>
 }
