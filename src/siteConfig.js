@@ -8,7 +8,7 @@ export const siteConfig = {
 
   contactEmail: 'weaiforge@gmail.com',
   // Set to your real Calendly event URL to enable on-site scheduling.
-  calendlyUrl: 'https://calendly.com/varun-weaiforge/discovery-call',
+  calendlyUrl: 'https://calendly.com/weaiforge-ai/discovery-call',
   // Opens a pre-filled email so the button always works. To use a scheduler
   // instead, set this to your Calendly / Cal.com link.
   bookingUrl:
