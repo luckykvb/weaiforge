@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import logo from './assets/logo.png'
+import ThemeSwitcher from './components/ThemeSwitcher'
 import { siteConfig } from './siteConfig'
 
 const Arrow = () => <span aria-hidden="true">↗</span>
-function Mark() { return <a className="wordmark" href="/" aria-label="WeAIForge home"><span className="brand-icon" aria-hidden="true">⌘</span> weai<span>forge</span><i /></a> }
+function Mark() { return <a className="wordmark" href="/" aria-label="WeAIForge home"><img src={logo} alt="WeAIForge" /></a> }
 const stages = [
   ['01', 'Receive', 'An order needs attention.', 'Order #1042 is delayed. Check the shipment and prepare a customer update.', 'REQUEST RECEIVED'],
   ['02', 'Retrieve', 'Connect the relevant context.', 'Sample CRM: customer found. Sample shipping record: delivery moved to Friday.', 'CONTEXT RETRIEVED'],
@@ -44,9 +46,8 @@ function Contact() {
 export default function App() {
  const [menu,setMenu]=useState(false)
  const detail=location.pathname.includes('forward-deployed')?'engineering':location.pathname.includes('ai-agents')?'agents':null
- useEffect(()=>{document.documentElement.removeAttribute('data-theme')},[])
  const home=detail?'/':''
- return <div className="forge"><a className="skip-link" href="#main">Skip to content</a><header className="site-header"><Mark/><nav className={menu?'open':''} aria-label="Primary">{[['Solutions','#solutions'],['Embedded engineering','#engineering'],['Demo','#demo'],['Our approach','#approach']].map(([label,url])=><a key={url} href={home+url} onClick={()=>setMenu(false)}>{label}</a>)}</nav><a className="header-cta" href={home+'#contact'}>Let’s talk <Arrow/></a><button className="menu-toggle" aria-expanded={menu} aria-label="Toggle navigation" onClick={()=>setMenu(!menu)}>{menu?'Close':'Menu'} <span>{menu?'−':'+'}</span></button></header>
+ return <div className="forge"><a className="skip-link" href="#main">Skip to content</a><header className="site-header"><Mark/><nav className={menu?'open':''} aria-label="Primary">{[['Solutions','#solutions'],['Embedded engineering','#engineering'],['Demo','#demo'],['Our approach','#approach']].map(([label,url])=><a key={url} href={home+url} onClick={()=>setMenu(false)}>{label}</a>)}</nav><a className="header-cta" href={home+'#contact'}>Let’s talk <Arrow/></a><ThemeSwitcher/><button className="menu-toggle" aria-expanded={menu} aria-label="Toggle navigation" onClick={()=>setMenu(!menu)}>{menu?'Close':'Menu'} <span>{menu?'−':'+'}</span></button></header>
  <main id="main">
  <section className="hero-section"><div className="hero-copy"><p className="eyebrow"><span className="status-dot"/> AGENTIC SYSTEMS & FORWARD-DEPLOYED ENGINEERING</p><h1>{detail==='engineering'?<>AI engineering.<br/><span>Inside your team.</span></>:detail==='agents'?<>Your workflow.<br/><span>Agent-powered.</span></>:<>Agentic AI.<br/>From idea to<br/><span>production.</span></>}</h1><p className="hero-description">{detail==='engineering'?'Bring dedicated AI engineering into your team. We work alongside your engineers and operators to turn your roadmap into deployed agentic systems.':'We design, build, and deploy AI agents around your business. Engage us to own the delivery, or embed AI engineering directly into your team.'}</p><div className="hero-buttons"><a href="#contact" className="button primary">Discuss your project <Arrow/></a><a href="#demo" className="button secondary"><span aria-hidden="true">▷</span> Explore the workflow</a></div><div className="hero-caption"><span>YOUR WORKFLOWS.</span><span>YOUR ENVIRONMENT.</span><span>BUILT TO OPERATE.</span></div></div><div className="hero-visual"><div className="visual-caption"><span>FROM INTENT TO EXECUTION</span><span>FIG. 01 ↙</span></div><Workflow compact/><p className="visual-note"><span>↳</span> An illustration of how an agent turns context into controlled action.</p></div></section>
  <div className="capability-strip"><span>BUILT AROUND YOUR BUSINESS</span><div>Agents & orchestration <i>+</i> Tools & integrations <i>+</i> Evaluations & controls <i>+</i> Deployment & operation</div></div>

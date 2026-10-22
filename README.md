@@ -26,7 +26,7 @@ The two service entry points use the shared site layout with service-specific he
 ## Editing
 
 - `src/App.jsx`: active company site, offerings, FAQ, simulation, and enquiry form
-- `src/styles/forge.css`: charcoal and lime visual design and responsive layouts
+- `src/styles/forge.css`: responsive layouts using the original WeAIForge theme tokens and logo
 - `src/siteConfig.js`: contact details and legal update date
 - `index.html`, `ai-agents.html`, `forward-deployed-engineering.html`: SEO metadata
 - `src/pages/Legal.jsx`: privacy and terms content
