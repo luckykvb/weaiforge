@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00.000 --> 00:04.000
+Receive: a customer asks about delayed order #1042.
+
+00:04.000 --> 00:08.000
+Investigate: link the order to a shipping record showing a missed connection and a revised Friday delivery estimate.
+
+00:08.000 --> 00:12.000
+Prepare: draft a customer update grounded in the order and shipment records.
+
+00:12.000 --> 00:16.000
+Review: a person checks the proposed wording and decides whether to approve or request a revision.
+
+00:16.000 --> 00:20.000
+Handover: record a sample approval and prepare the case for follow-up. No external message is sent.

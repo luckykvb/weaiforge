@@ -6,13 +6,13 @@ export const siteConfig = {
   // One-line positioning used in a few meta spots.
   tagline: 'Agentic AI & forward-deployed engineering',
 
-  contactEmail: 'weaiforge@gmail.com',
+  contactEmail: 'info@weaiforge.com',
   // Set to your real Calendly event URL to enable on-site scheduling.
   calendlyUrl: 'https://calendly.com/weaiforge-ai/discovery-call',
   // Opens a pre-filled email so the button always works. To use a scheduler
   // instead, set this to your Calendly / Cal.com link.
   bookingUrl:
-    'mailto:weaiforge@gmail.com?subject=' +
+    'mailto:info@weaiforge.com?subject=' +
     encodeURIComponent('Discovery call request') +
     '&body=' +
     encodeURIComponent(
