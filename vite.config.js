@@ -10,6 +10,7 @@ export default defineConfig({
         privacy: 'privacy.html',
         terms: 'terms.html',
         aiAgents: 'ai-agents.html',
+        engineering: 'forward-deployed-engineering.html',
       },
     },
   },

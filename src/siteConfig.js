@@ -4,9 +4,11 @@
 export const siteConfig = {
   brand: 'weaiforge',
   // One-line positioning used in a few meta spots.
-  tagline: 'AI systems studio',
+  tagline: 'Agentic AI & forward-deployed engineering',
 
   contactEmail: 'weaiforge@gmail.com',
+  // Set to your real Calendly event URL to enable on-site scheduling.
+  calendlyUrl: 'https://calendly.com/weaiforge-ai/discovery-call',
   // Opens a pre-filled email so the button always works. To use a scheduler
   // instead, set this to your Calendly / Cal.com link.
   bookingUrl:
@@ -24,7 +26,7 @@ export const siteConfig = {
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms of Service', href: '/terms' },
   ],
-  legalUpdated: 'October 12, 2026',
+  legalUpdated: 'October 21, 2026',
 
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/weaiforge/' },

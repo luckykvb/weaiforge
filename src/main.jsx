@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client'
 import './styles/tokens.css'
 import './styles/global.css'
 import './styles/sections.css'
+import './styles/forge.css'
 import App from './App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
