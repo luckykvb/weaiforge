@@ -7,6 +7,8 @@ export const siteConfig = {
   tagline: 'Agentic AI & forward-deployed engineering',
 
   contactEmail: 'weaiforge@gmail.com',
+  // Set to your real Calendly event URL to enable on-site scheduling.
+  calendlyUrl: 'https://calendly.com/varun-weaiforge/30min',
   // Opens a pre-filled email so the button always works. To use a scheduler
   // instead, set this to your Calendly / Cal.com link.
   bookingUrl:

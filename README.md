@@ -33,6 +33,10 @@ The two service entry points use the shared site layout with service-specific he
 
 The workflow is a manually stepped browser simulation with synthetic data. It does not call a model, connect to a CRM, or send external messages. It is not a client project or a working backend agent. The simulated approval and completion states are illustrative.
 
-Contact enquiries open a populated email draft; visitors must send it through their email app. There is no form submission service or calendar integration.
+Contact enquiries open a populated email draft; visitors must send it through their email app. There is no form submission service. Calendly scheduling is available when its event URL is configured.
 
 Legacy components in `src/sections` and `src/components` are retained but are not rendered by the new company site.
+
+## Calendly scheduling
+
+Set `calendlyUrl` in `src/siteConfig.js` to the real HTTPS Calendly event URL. This enables the booking section and routes the header and hero booking buttons to it. The calendar loads only when visitors choose “Choose a time”; a direct Calendly link is available as a fallback. No API key is needed. Without a valid event URL, existing enquiry links remain active.
