@@ -1,26 +1,26 @@
 # WeAIForge website direction
 
-## Core purpose
-Help a potential buyer recognise a workflow worth improving, understand what WeAIForge can deliver, and confidently start a scoped conversation.
+## Purpose and audience
+Help founders and business teams recognise a manual workflow worth improving and start a scoped conversation. WeAIForge is presented as a focused AI engineering studio.
 
-## Audience
-Primary: founders and business teams buying AI solutions (confirmed by the user). Secondary: engineering leaders. Lead with recognisable work and business outcomes; provide engineering depth through the demonstrations and embedded delivery option.
+## Primary offer
+Start with one workflow: discovery, a working prototype using agreed sample data, feasibility findings, and a separately scoped production proposal. Timeline and fee are agreed after an initial conversation; no invented price or delivery guarantee.
 
-## Story and hierarchy
-1. A clear, business-facing promise and a large, readable product demonstration.
-2. Specific workflows a visitor can recognise, presented through selectable product examples.
-3. A featured operations walkthrough with a substantial video and optional interactive detail.
-4. Two engagement choices, with concrete deliverables and a focused first engagement.
-5. A concise delivery path, useful FAQs, scheduling, and a project enquiry.
+## Homepage sequence
+1. A direct explanation of the service and three concrete categories of work.
+2. One interactive order-enquiry demonstration, with source records, an editable reply, human approval, and restart.
+3. The discovery-and-prototype offer: deliverables, required client inputs, and next step.
+4. Specific delivery practices: evaluation, action boundaries, and maintainability. No invented experience or client results.
+5. A small secondary embedded-engineering offer, useful FAQs, and contact with optional scheduling.
 
-## Visual system
-Retain the logo, existing font families, light surfaces, terracotta default, and selectable theme tokens. Expand the composition to the available screen width with consistent responsive gutters. Alternate asymmetric splits, an edge-to-edge tinted workbench, a large media feature, and an offset delivery section. Use fewer tiny labels and fewer repetitive bordered cards. Text stays left-aligned with readable line lengths. Let the actual product UI and motion carry the visual story.
+## Visual decisions
+Preserve the logo, font families, accent palettes, and Light/Dark/System preferences. Use responsive gutters, left-aligned text, readable product content, and restrained section changes. Avoid slogan-heavy copy, decorative numbering, repeated arrow motifs, and multiple competing demonstrations. The screenshot slideshow, three-example dashboard, and equal-prominence service cards are retired from the active page.
 
-## Evidence
-All examples are clearly labelled local concept demonstrations with fictional records. No invented clients, testimonials, result metrics, or live integration claims. Use the existing screenshot-based walkthrough accurately described as such. Keep the actual interactive workflow available.
+## Evidence and claims
+The demonstration uses fictional data, is browser-only, and sends nothing. Do not imply a live model, external integration, customer deployment, measured business result, or named expertise without evidence. Explain engineering decisions through the demo and concrete engagement terms.
 
-## Interaction and accessibility
-Keyboard-operable workflow selection, a user-initiated simulation that pauses at review, reduced-motion support, visible focus, readable mobile stacking, and no page overflow. Keep Calendly opt-in and email-draft enquiries explicit. Preserve both service URLs and legal routes.
+## Service pages
+Keep existing URLs. The workflow-development page adds production scope: integrations, quality checks, action boundaries, and operation. The embedded-engineering page adds working arrangements, allocation, milestones, and handover. Both retain the common contact and starting offer.
 
-## Verification
-Production build, browser review at desktop and mobile widths, demonstration approval and reset, service-route content, contact validation, theme switching, and video loading.
+## Preferences and accessibility
+System appearance follows the OS unless explicitly overridden; accent is saved independently. Keep keyboard operation, visible focus, human approval, meaningful form labels, required-field validation, and responsive mobile stacking. Calendly loads on request; email enquiries open a draft for the visitor to send.

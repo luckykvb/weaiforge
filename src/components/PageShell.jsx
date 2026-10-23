@@ -1,5 +1,6 @@
 import { siteConfig } from '../siteConfig'
 import logo from '../assets/logo.png'
+import ThemeSwitcher from './ThemeSwitcher'
 
 // Header + footer for standalone pages (legal, services) that live outside the
 // single-page homepage.
@@ -11,6 +12,7 @@ export default function PageShell({ children }) {
           <a href="/" className="nav__logo" aria-label={`${siteConfig.brand} home`}>
             <img src={logo} alt={siteConfig.brand} className="nav__logo-img" />
           </a>
+          <ThemeSwitcher/>
           <a href="/" className="legal__back">
             ← Back to site
           </a>

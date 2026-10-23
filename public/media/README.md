@@ -11,3 +11,7 @@ Active media comes from the actual browser-rendered OperationsShowcase component
 Rebuild with `python3 scripts/build_showcase_video.py` in an environment with Pillow and ffmpeg. The font paths currently target macOS Arial.
 
 The previously generated logistics artwork is no longer referenced by the site or the video build. It is retained as an unused earlier asset.
+
+## Appearance variants
+
+The dark variant uses actual captures in `product-frames-dark/`, recorded in the dark Amber palette. Build it with `python3 scripts/build_showcase_video.py --mode dark`. This creates `order-workflow-dark.mp4` and `order-workflow-poster-dark.jpg`. The page selects the matching video and poster when light/dark appearance changes. Accent colors inside recorded footage are fixed, while the surrounding live interface follows the selected accent.

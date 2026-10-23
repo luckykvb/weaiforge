@@ -1371,3 +1371,11 @@
     grid-template-columns: 1fr;
   }
 }
+
+.appearance-controls { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.mode-toggle { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; padding:0; border-radius:50%; border:1px solid var(--border-strong); background:var(--bg-card); color:var(--text); cursor:pointer; }
+.mode-toggle:hover { border-color:var(--accent); color:var(--accent); }
+:root[data-mode='dark'] .wordmark img, :root[data-mode='dark'] .nav__logo-img { filter:brightness(1.5); }
+.legal__bar-inner>.appearance-controls { margin-left:auto; }
+.mode-picker { position:relative; }
+.appearance-check { margin-left:auto; color:var(--accent); min-width:12px; }

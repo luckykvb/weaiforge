@@ -2,20 +2,28 @@
 <html lang="en" data-page="terms">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Restore the explicit choice, otherwise follow the system before paint.
+      (function () {
+        var root = document.documentElement;
+        var theme, preference;
+        try {
+          theme = localStorage.getItem('weaiforge-theme');
+          preference = localStorage.getItem('weaiforge-mode');
+        } catch (e) {}
+        if (['slate', 'forest', 'amber'].indexOf(theme) !== -1) root.setAttribute('data-theme', theme);
+        if (preference !== 'light' && preference !== 'dark') preference = 'system';
+        var mode = preference === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : preference;
+        root.setAttribute('data-mode', mode);
+        root.setAttribute('data-mode-preference', preference);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F6E5D6" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>Terms of Service — WeAIForge</title>
     <meta name="description" content="Terms governing use of the WeAIForge website, weaiforge.com." />
     <link rel="canonical" href="https://weaiforge.com/terms" />
-    <script>
-      (function () {
-        try {
-          var t = localStorage.getItem('weaiforge-theme');
-          if (t && t !== 'terracotta') document.documentElement.setAttribute('data-theme', t);
-        } catch (e) {}
-      })();
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

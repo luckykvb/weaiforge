@@ -2,11 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Restore the explicit choice, otherwise follow the system before paint.
+      (function () {
+        var root = document.documentElement;
+        var theme, preference;
+        try {
+          theme = localStorage.getItem('weaiforge-theme');
+          preference = localStorage.getItem('weaiforge-mode');
+        } catch (e) {}
+        if (['slate', 'forest', 'amber'].indexOf(theme) !== -1) root.setAttribute('data-theme', theme);
+        if (preference !== 'light' && preference !== 'dark') preference = 'system';
+        var mode = preference === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : preference;
+        root.setAttribute('data-mode', mode);
+        root.setAttribute('data-mode-preference', preference);
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F6E5D6" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>Agentic AI Solutions, From Idea to Production | WeAIForge</title>
-    <meta name="description" content="Custom agentic AI solutions: workflow discovery, agent development, integrations, evaluation, deployment and ongoing improvement." />
+    <title>AI workflow development — WeAIForge</title>
+    <meta name="description" content="Custom AI workflow development with business-system integrations, evaluation, human approval, deployment, and handover. Start with a scoped discovery and prototype." />
     <meta name="keywords" content="AI studio, custom AI solutions, AI agents, workflow automation, generative AI, AI consulting, data intelligence, WeAIForge" />
     <meta name="author" content="WeAIForge" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -14,16 +30,16 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="WeAIForge" />
-    <meta property="og:title" content="Agentic AI Solutions, From Idea to Production | WeAIForge" />
-    <meta property="og:description" content="Custom agentic AI solutions: workflow discovery, agent development, integrations, evaluation, deployment and ongoing improvement." />
+    <meta property="og:title" content="AI workflow development — WeAIForge" />
+    <meta property="og:description" content="Custom AI workflow development with business-system integrations, evaluation, human approval, deployment, and handover. Start with a scoped discovery and prototype." />
     <meta property="og:url" content="https://weaiforge.com/ai-agents" />
     <meta property="og:image" content="https://weaiforge.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="WeAIForge — custom AI systems that solve real business problems" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Agentic AI Solutions, From Idea to Production | WeAIForge" />
-    <meta name="twitter:description" content="Custom agentic AI solutions: workflow discovery, agent development, integrations, evaluation, deployment and ongoing improvement." />
+    <meta name="twitter:title" content="AI workflow development — WeAIForge" />
+    <meta name="twitter:description" content="Custom AI workflow development with business-system integrations, evaluation, human approval, deployment, and handover. Start with a scoped discovery and prototype." />
     <meta name="twitter:image" content="https://weaiforge.com/og-image.png" />
 
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Agentic AI Solutions, From Idea to Production", "description": "Custom agentic AI solutions: workflow discovery, agent development, integrations, evaluation, deployment and ongoing improvement.", "url": "https://weaiforge.com/ai-agents", "provider": {"@type": "Organization", "name": "WeAIForge", "url": "https://weaiforge.com/"}}</script>
