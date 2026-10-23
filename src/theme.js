@@ -10,6 +10,16 @@ export const themes = [
 export const DEFAULT_THEME = 'terracotta'
 export const THEME_EVENT = 'themechange'
 export const THEME_STORAGE_KEY = 'weaiforge-theme'
+export const MODE_STORAGE_KEY = 'weaiforge-mode'
+export const MODE_EVENT = 'modechange'
+
+function readPreference(key) {
+  try { return localStorage.getItem(key) } catch { return null }
+}
+
+function savePreference(key, value) {
+  try { localStorage.setItem(key, value) } catch { /* The toggle still works without storage. */ }
+}
 
 export function getAccentRgb(themeId) {
   return themes.find((t) => t.id === themeId)?.accentRgb ?? themes[0].accentRgb
@@ -22,10 +32,34 @@ export function applyTheme(themeId) {
   } else {
     document.documentElement.setAttribute('data-theme', id)
   }
-  localStorage.setItem(THEME_STORAGE_KEY, id)
+  savePreference(THEME_STORAGE_KEY, id)
   window.dispatchEvent(new CustomEvent(THEME_EVENT, { detail: { theme: id } }))
 }
 
 export function getStoredTheme() {
-  return localStorage.getItem(THEME_STORAGE_KEY) || DEFAULT_THEME
+  const id = readPreference(THEME_STORAGE_KEY)
+  return themes.some(t => t.id === id) ? id : DEFAULT_THEME
+}
+
+export function getStoredMode() {
+  return resolveMode(getModePreference())
+}
+
+export function getModePreference() {
+  const value = readPreference(MODE_STORAGE_KEY)
+  return value === 'light' || value === 'dark' ? value : 'system'
+}
+
+export function resolveMode(preference) {
+  if (preference === 'light' || preference === 'dark') return preference
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
+export function applyMode(value) {
+  const preference = value === 'light' || value === 'dark' ? value : 'system'
+  const mode = resolveMode(preference)
+  document.documentElement.dataset.mode = mode
+  document.documentElement.dataset.modePreference = preference
+  savePreference(MODE_STORAGE_KEY, preference)
+  window.dispatchEvent(new CustomEvent(MODE_EVENT, { detail: { mode, preference } }))
 }

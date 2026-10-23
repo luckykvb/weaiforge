@@ -11,17 +11,17 @@ export function getCalendlyUrl(value) {
   }
 }
 
-export default function CalendlyBooking() {
+export default function CalendlyBooking({ compact = false }) {
   const [opened, setOpened] = useState(false)
   const url = getCalendlyUrl(siteConfig.calendlyUrl)
   if (!url) return null
 
   return (
-    <section id="book" className="booking-section" aria-labelledby="booking-title">
+    <section id="book" className={`booking-section ${compact ? 'booking-compact' : ''}`} aria-labelledby="booking-title">
       <div>
-        <p className="eyebrow">LET’S FIND A TIME</p>
-        <h2 id="booking-title">Book a discovery call.</h2>
-        <p>Choose a time to discuss your workflow, your idea, or the engineering support you need.</p>
+        {!compact && <p className="eyebrow">LET’S FIND A TIME</p>}
+        <h2 id="booking-title">{compact ? 'Prefer a call?' : 'Book a discovery call.'}</h2>
+        <p>We’ll discuss the current process, available data, and what a useful prototype could test.</p>
       </div>
       {opened ? (
         <div className="booking-calendar">

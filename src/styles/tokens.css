@@ -101,7 +101,8 @@
 }
 
 /* ---- Color : Amber Stone (warm neutral stone, high-contrast ink) ------- */
-[data-theme='amber'] {
+:root[data-theme='amber'] {
+  --on-accent: #201b17;
   --bg: #ffffff;
   --bg-rgb: 255, 255, 255;
   --bg-elevated: #f6f4ef;
@@ -117,10 +118,50 @@
 
   --accent: #c8791f;
   --accent-rgb: 200, 121, 31;
-  --accent-hover: #a1611a;
+  --accent-hover: #db943d;
   --accent-dim: rgba(200, 121, 31, 0.1);
   --accent-glow: rgba(200, 121, 31, 0.35);
   --accent-secondary: #e8b768;
 
   --grid-line: rgba(28, 28, 32, 0.05);
+}
+
+/* Appearance is independent of the selected accent palette. */
+:root { color-scheme: light; --on-accent: #fff; }
+:root[data-mode='dark'] {
+  color-scheme: dark;
+  --bg: #141a17;
+  --bg-rgb: 20, 26, 23;
+  --bg-elevated: #232b25;
+  --bg-card: #1b231e;
+  --bg-card-hover: #29332c;
+  --text: #f0f1e9;
+  --text-muted: #b3c0b6;
+  --text-faint: #94a69a;
+  --border: rgba(220, 235, 224, .13);
+  --border-strong: rgba(220, 235, 224, .28);
+  --accent: #e6a080;
+  --accent-rgb: 230, 160, 128;
+  --accent-hover: #f2b69a;
+  --accent-dim: rgba(230, 160, 128, .11);
+  --accent-glow: rgba(230, 160, 128, .25);
+  --accent-secondary: #e9ba97;
+  --on-accent: #201b17;
+  --grid-line: rgba(220, 235, 224, .055);
+}
+:root[data-mode='dark'][data-theme='slate'] {
+  --bg: #151922; --bg-rgb: 21, 25, 34;
+  --bg-card: #1c2230; --bg-elevated: #232c3d; --bg-card-hover: #2b354a;
+  --accent: #a6b6ff; --accent-rgb: 166, 182, 255; --accent-hover: #bfcbff;
+  --accent-dim: rgba(166,182,255,.11); --accent-glow: rgba(166,182,255,.25); --accent-secondary: #c4ceff;
+}
+:root[data-mode='dark'][data-theme='forest'] {
+  --accent: #8ed2aa; --accent-rgb: 142, 210, 170; --accent-hover: #ace7c3;
+  --accent-dim: rgba(142,210,170,.11); --accent-glow: rgba(142,210,170,.25); --accent-secondary: #b7dec5;
+}
+:root[data-mode='dark'][data-theme='amber'] {
+  --bg: #1b1a17; --bg-rgb: 27, 26, 23;
+  --bg-card: #24221d; --bg-elevated: #2f2b23; --bg-card-hover: #373127;
+  --accent: #e8bd7d; --accent-rgb: 232, 189, 125; --accent-hover: #f3d3a2;
+  --accent-dim: rgba(232,189,125,.11); --accent-glow: rgba(232,189,125,.25); --accent-secondary: #e8d0ac;
 }
