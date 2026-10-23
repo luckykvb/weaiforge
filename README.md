@@ -11,7 +11,13 @@ npm run build
 npm run preview
 ```
 
-Deploy `dist/` to a static host. Vercel clean URLs are configured in `vercel.json`.
+## Hosting
+
+The site is hosted on AWS: a private S3 bucket behind CloudFront, with DNS in
+Route 53. Every push to `main` is built and deployed automatically by GitHub
+Actions (`.github/workflows/site.yml`); the infrastructure is Terraform under
+[`infra/`](infra/README.md). Clean URLs (`/privacy` → `privacy.html`) and the
+`www` → apex redirect are handled by a CloudFront Function, not `vercel.json`.
 
 ## Pages
 

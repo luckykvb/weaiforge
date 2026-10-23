@@ -1,0 +1,3 @@
+# Infrastructure and CI changes need a review from the owners.
+/infra/          @weaiforge5/admins
+/.github/        @weaiforge5/admins

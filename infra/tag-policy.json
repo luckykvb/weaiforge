@@ -1,0 +1,6 @@
+{
+  "_comment": "Single source of truth for the mandatory tag contract. Read by Terraform (envs/*, bootstrap) and by scripts/check-tags.py in CI. Keys are namespaced: <prefix><name>.",
+  "prefix": "weaiforge:",
+  "required": ["project", "environment", "cost-center", "owner", "managed-by", "repository", "data-classification"],
+  "value_pattern": "^[A-Za-z0-9 _.:/=+@-]{1,128}$"
+}

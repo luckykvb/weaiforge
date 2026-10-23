@@ -31,7 +31,7 @@ const PAGES = {
       {
         h: 'Third-party services',
         body: [
-          'The site is hosted on Vercel. Fonts are loaded from Google Fonts, which means your browser requests them from Google and Google may receive your IP address. When you choose to load the booking calendar, your browser connects to Calendly. Calendly processes scheduling details you submit through its calendar. Email is handled by our email provider. These providers process data under their own privacy policies.',
+          'The site is hosted on Amazon Web Services (S3 and CloudFront). Fonts are loaded from Google Fonts, which means your browser requests them from Google and Google may receive your IP address. When you choose to load the booking calendar, your browser connects to Calendly. Calendly processes scheduling details you submit through its calendar. Email is handled by our email provider. These providers process data under their own privacy policies.',
         ],
       },
       {
