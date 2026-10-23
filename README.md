@@ -1,6 +1,6 @@
 # WeAIForge
 
-Focused company website for custom AI workflows and engineering, built with React and Vite. No backend or live model is required.
+Focused company website for custom AI workflows and engineering, built with React and Vite. The demonstration needs no live model. Optional server-side enquiry delivery is prepared but disabled by default.
 
 ## Development
 
@@ -34,7 +34,7 @@ The content and design brief is in `docs/website-direction.md`.
 
 ## Demonstration
 
-The sample runs in the browser with fictional data. Visitors can select any workflow stage with clickable tabs, use arrow keys/Home/End, advance manually, or play to the review checkpoint. The Complete tab shows a pending state until “Approve & complete sample” is selected. Navigation and primary actions are above the workspace so visitors can see which content they control. Requesting revision opens an editable sample response. Blank replies cannot advance; approval records the simulated outcome and reveals the sample action sequence. Restart restores the original sample. No model is called, records updated externally, or message sent.
+The sample runs in the browser with fictional data. Visitors can select any stage through clickable tabs or arrow keys/Home/End. It opens with a proposed action visible, uses three predefined scenarios and provides distinct investigation, review and completion states. The final stage awaits explicit approval. Editing clears approval, switching scenarios resets the draft, and blank actions cannot proceed. No model is called and no external records or messages are changed.
 
 Earlier multi-example components, screenshot videos, and generated artwork are retained as unused assets. They are not imported by the active site. See `public/media/README.md` for their provenance.
 
@@ -44,4 +44,18 @@ New visitors follow their system's color scheme. The appearance menu offers Ligh
 
 ## Contact and scheduling
 
-Email enquiries open a populated draft for the visitor to review and send; there is no form submission backend. `calendlyUrl` in `src/siteConfig.js` enables the optional booking area. Calendly loads only after “Choose a time”; a direct link is available as a fallback. Without a valid event URL, primary links lead to the contact section.
+The default contact section offers direct email and optional scheduling. Direct form delivery is available only after configuring the optional backend described below. `calendlyUrl` in `src/siteConfig.js` enables the optional booking area. Calendly loads only after “Choose a time”; a direct link is available as a fallback. Without a valid event URL, primary links lead to the contact section.
+
+## Optional direct enquiry delivery
+
+The default contact area offers scheduling and direct email, with no pretend submission form. The prepared direct form is disabled until hosting is configured. For a Vercel deployment, `api/contact.js` can send to a fixed inbox through Resend's email API (https://resend.com/docs/api-reference/emails/send-email).
+
+Server-only hosting environment variables:
+- `RESEND_API_KEY`: sending key from your chosen Resend account.
+- `CONTACT_FROM`: sender address on your verified sending domain.
+- `CONTACT_TO`: your receiving inbox.
+- `CONTACT_ORIGIN`: exact public origin, such as `https://weaiforge.com` (no trailing slash).
+
+Once delivery is configured and tested in staging, set `VITE_CONTACT_ENABLED=true` and rebuild. Never put credentials in `VITE_*` variables. Vite alone does not serve the function; use a Vercel preview to test it end to end. Configure hosting-level rate limits before enabling a public form. An origin check and honeypot are included, but are not a substitute for rate limiting. Review privacy disclosures for the chosen provider before launch. A successful response means the email provider accepted the enquiry, not guaranteed inbox delivery.
+
+Run `node --test tests/contact.test.js` for mocked validation and delivery-failure checks; these do not send email. No account is created or email service activated by this code.
