@@ -1,0 +1,2 @@
+# Pin line endings: the edge CSP hashes the inline script in these files byte-for-byte.
+*.html text eol=lf

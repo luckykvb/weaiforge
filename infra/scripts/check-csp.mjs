@@ -22,7 +22,8 @@ const problems = []
 const pages = readdirSync(dist).filter((f) => f.endsWith('.html'))
 
 for (const page of pages) {
-  const html = readFileSync(join(dist, page), 'utf8')
+  // CI builds on Linux (LF); normalise so a Windows CRLF checkout hashes the same.
+  const html = readFileSync(join(dist, page), 'utf8').replaceAll('\r\n', '\n')
 
   for (const [, attrs, body] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
     const src = attrs.match(/\bsrc=["']([^"']+)/)?.[1]
