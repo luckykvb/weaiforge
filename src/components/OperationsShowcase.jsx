@@ -1,126 +1,88 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const DEFAULT_DRAFT = 'Hi Jamie,\n\nYour shipment missed a connection at the regional sorting hub. The latest shipping record now estimates delivery on Friday, 23 October.\n\nI’m sorry for the delay. We’ll keep this case open until the delivery is confirmed.\n\nNorthline Customer Operations'
 
-const steps = [
-  { title: 'Receive', heading: 'A customer asks about a late order.', description: 'An incoming customer email opens a case linked to the order. The workflow starts with a specific request, rather than an open-ended task.', event: 'Customer request linked to order #1042' },
-  { title: 'Investigate', heading: 'Check the order and shipment records.', description: 'The sample customer and shipment records reveal a missed connection and a revised delivery date. Source references stay attached to the case.', event: 'Customer and shipment records retrieved' },
-  { title: 'Draft', heading: 'Prepare a response using the delivery estimate.', description: 'The proposed response explains the delay and the updated delivery date. It makes no promise of a refund or compensation.', event: 'Customer update prepared for review' },
-  { title: 'Review', heading: 'Review the draft before approving.', description: 'Review the message and its supporting records. Approve the sample update or send it back for revision before completing the walkthrough.', event: 'Paused at the approval checkpoint' },
-  { title: 'Complete', heading: 'Approval recorded in the sample.', description: 'The sample case records the approval and proposed next action. This demonstration has no external connections and sends no email.', event: 'Approval recorded; sample case marked ready' },
+const scenarios = [
+  { id: 'delay', label: 'Delayed delivery', kind: 'Delivery enquiry', request: 'Can you check my delivery?', message: 'My order was due Wednesday, but the tracking hasn’t moved. Can you let me know when it will arrive?', record: 'Missed linehaul connection', estimate: 'Friday, 23 October', route: 'Prepare delivery update', policy: 'A current delivery estimate is available. Prepare a sourced update; a person must approve it before sending.', action: 'Proposed delivery update', draft: DEFAULT_DRAFT, decision: 'Delivery delay', evidence: 'CRM-1042 + SHP-8821: order matched; revised estimate available.', draftHeading: 'Prepare a response using the delivery estimate.' },
+  { id: 'missing', label: 'Missing tracking information', kind: 'Incomplete shipment record', request: 'Has my order shipped?', message: 'My order was due Wednesday. The tracking link does not work. Can you tell me when it will arrive?', record: 'No carrier scan available', estimate: 'Not available', route: 'Request a shipment check', policy: 'There is no verified delivery estimate. Ask the operations team to check with the carrier; do not invent a date.', action: 'Internal investigation request', draft: 'Shipment check needed — order #1042\n\nThe customer reports that their tracking link is unavailable. The order record matches, but SHP-8821 contains no carrier scan or verified delivery estimate.\n\nPlease confirm dispatch and obtain a current carrier update before we give the customer a delivery date.', decision: 'Insufficient shipment information', evidence: 'CRM-1042: order matched. SHP-8821: carrier scan and delivery estimate missing.', draftHeading: 'Ask the operations team for missing information.' },
+  { id: 'refund', label: 'Refund request', kind: 'Refund requested', request: 'Can you refund my order?', message: 'My order is late and I no longer need it. Please cancel it and refund the payment.', record: 'Missed linehaul connection', estimate: 'Friday, 23 October', route: 'Escalate for refund review', policy: 'Refund eligibility is not established by these records. A person must check policy and payment status. No refund is promised or issued.', action: 'Refund review handoff', draft: 'Refund review needed — order #1042\n\nJamie Chen has requested cancellation and a refund after a delivery delay. The shipment record estimates delivery on Friday, 23 October.\n\nPlease check cancellation eligibility, payment status and the applicable refund policy before replying. No refund has been promised or issued.', decision: 'Cancellation and refund request', evidence: 'Customer explicitly requests a refund. CRM-1042 and SHP-8821 do not establish refund eligibility.', draftHeading: 'Prepare a handoff for a refund decision.' },
 ]
 
-export default function OperationsShowcase() {
-  const [step, setStep] = useState(0)
-  const [playing, setPlaying] = useState(false)
-  const [revision, setRevision] = useState(false)
-  const [draft, setDraft] = useState(DEFAULT_DRAFT)
-  const [approved, setApproved] = useState(false)
-  const [navigationError, setNavigationError] = useState('')
-  const current = step === 4 && !approved ? {
-    heading: 'Approve the reply to complete the sample.',
-    description: 'Review the draft below, then choose “Approve & complete sample”. You can also return it for revision. Nothing is sent outside this demo.',
-    event: 'Final step: awaiting your approval',
-  } : step === 3 && approved ? {
-    heading: 'Review the approved sample reply.',
-    description: 'This reply has already been approved. View completion, or request a revision to reopen the draft and clear its approval.',
-    event: 'Viewing the approved sample reply',
-  } : steps[step]
-  useEffect(() => {
-    if (!playing || step >= 3 || (step === 2 && !draft.trim())) return
-    const timer = window.setTimeout(() => setStep(s => s + 1), 3500)
-    return () => window.clearTimeout(timer)
-  }, [playing, step, draft])
-  useEffect(() => { if (step >= 3) setPlaying(false) }, [step])
+const stages = ['Receive', 'Investigate', 'Draft', 'Review', 'Complete']
 
-  function goToStep(target) {
-    setPlaying(false)
+export default function OperationsShowcase() {
+  const [scenarioId, setScenarioId] = useState('delay')
+  const scenario = scenarios.find(item => item.id === scenarioId)
+  const [step, setStep] = useState(2)
+  const [draft, setDraft] = useState(DEFAULT_DRAFT)
+  const [editing, setEditing] = useState(false)
+  const [approved, setApproved] = useState(false)
+  const [error, setError] = useState('')
+
+  function selectScenario(id) {
+    setScenarioId(id)
+    setDraft(scenarios.find(item => item.id === id).draft)
+    setStep(2)
+    setEditing(false)
+    setApproved(false)
+    setError('')
+  }
+
+  function navigate(target) {
     if (target >= 3 && !draft.trim()) {
+      setError('Add a proposed action before continuing.')
+      setEditing(true)
       setStep(2)
-      setRevision(true)
-      setNavigationError('Add a response before moving to review or completion.')
-      document.getElementById('workflow-tab-2')?.focus()
-      return false
+      return 2
     }
-    setNavigationError('')
+    setError('')
+    setEditing(false)
     setStep(target)
-    return true
+    return target
   }
 
   function handleTabKey(event, index) {
-    const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End']
-    if (!keys.includes(event.key)) return
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
     event.preventDefault()
-    const target = event.key === 'Home' ? 0 : event.key === 'End' ? 4 : (index + (event.key === 'ArrowRight' ? 1 : -1) + steps.length) % steps.length
-    const selected = goToStep(target) ? target : 2
-    document.getElementById(`workflow-tab-${selected}`)?.focus()
+    const target = event.key === 'Home' ? 0 : event.key === 'End' ? 4 : (index + (event.key === 'ArrowRight' ? 1 : -1) + 5) % 5
+    document.getElementById(`workflow-tab-${navigate(target)}`)?.focus()
   }
 
-  function approve() {
-    if (!draft.trim()) return
-    setApproved(true)
-    setRevision(false)
-    setPlaying(false)
-    setNavigationError('')
-    setStep(4)
-    document.getElementById('workflow-tab-4')?.focus()
+  function primaryAction() {
+    if (step < 3) return navigate(step + 1)
+    if (!approved) {
+      if (!draft.trim()) return navigate(3)
+      setApproved(true)
+      setStep(4)
+      setEditing(false)
+    } else selectScenario(scenarioId)
   }
 
-  function requestRevision() {
-    setApproved(false)
-    setRevision(true)
-    goToStep(2)
-  }
+  const waitingForApproval = step >= 3 && !approved
+  const route = scenarioId === 'delay' ? 'Delivery delay → Prepare an update' : scenarioId === 'missing' ? 'Missing tracking → Ask operations to investigate' : 'Refund requested → Hand off for review'
 
-  function restart() {
-    setStep(0)
-    setPlaying(false)
-    setRevision(false)
-    setDraft(DEFAULT_DRAFT)
-    setApproved(false)
-    setNavigationError('')
-  }
-
-  return <section id="demo" className="workflow-demo page-gutter">
-    <div className="demo-heading"><div><p className="eyebrow">EXAMPLE WORKFLOW</p><h2>From a delivery enquiry<br/>to a reviewed reply.</h2></div><p>An operations team needs to check an order, investigate a delay, and update the customer. Explore how those steps can come together in one workflow.</p></div>
-    <div className="demo-toolbar"><div className="demo-disclosure"><span>Concept demonstration</span><p>Fictional records. Runs in your browser; no live model, integrations, or messages.</p></div>{step < 3 && <button className="button secondary" disabled={step === 2 && !draft.trim()} onClick={() => setPlaying(p => !p)}>{playing ? 'Pause sample' : 'Play sample'}</button>}</div>
-    <div className="ops-walkthrough">
-      <div className="ops-steps" role="tablist" aria-label="Workflow stages">{steps.map((item, i) => <button type="button" role="tab" id={`workflow-tab-${i}`} aria-controls="workflow-panel" aria-selected={i === step} tabIndex={i === step ? 0 : -1} key={item.title} onClick={() => goToStep(i)} onKeyDown={event => handleTabKey(event, i)}><span aria-hidden="true">{i < Math.min(step, 3) || (i === 3 && approved) ? '✓' : `0${i + 1}`}</span>{item.title}</button>)}</div>
-      {navigationError && <p className="ops-navigation-error" role="alert">{navigationError}</p>}
+  return <section id="demo" className="workflow-demo page-gutter quiet-demo">
+    <div className="demo-heading"><div><p className="eyebrow">SEE THE WORKFLOW</p><h2>The next step depends<br/>on what you know.</h2></div><p>Try three customer requests. See what the team receives, what happens next, and where a person stays in control.</p></div>
+    <p className="quiet-explore-note">Explore the stages in any order. Approval is always a separate action.</p>
+    <div className="quiet-workspace">
+      <div className="quiet-workspace-header"><span>Customer operations <span className="quiet-case">/ Order #1042</span></span><label>Scenario<select value={scenarioId} onChange={event => selectScenario(event.target.value)}>{scenarios.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label></div>
+      <div className="quiet-progress" role="tablist" aria-label="Workflow stages">{stages.map((title, index) => <button type="button" role="tab" key={title} id={`workflow-tab-${index}`} aria-selected={step === index} aria-controls="workflow-panel" tabIndex={step === index ? 0 : -1} onClick={() => navigate(index)} onKeyDown={event => handleTabKey(event, index)}><span aria-hidden="true">{index + 1}</span>{title}</button>)}</div>
       <div id="workflow-panel" role="tabpanel" aria-labelledby={`workflow-tab-${step}`} tabIndex={0}>
-      <div className="ops-narrative"><div aria-live="polite"><h3>{current.heading}</h3><p>{current.description}</p></div><div className="ops-controls">
-        {step < 3 && <button className="button primary" onClick={() => goToStep(step + 1)} disabled={step === 2 && !draft.trim()}>Next step →</button>}
-        {step >= 3 && !approved && <button className="button primary" onClick={approve} disabled={!draft.trim()}>Approve & complete sample</button>}
-        {step >= 3 && <button className="button secondary" onClick={requestRevision}>Request revision</button>}
-        {step === 3 && approved && <button className="button primary" onClick={() => goToStep(4)}>View completion</button>}
-        {step > 0 && <button className="text-link" onClick={restart}>Restart sample</button>}
-        {step === 4 && approved && <a className="text-link" href="#contact">Discuss a workflow like this ↗</a>}
-      </div></div>
-    <div className="ops-workspace">
-      <div className="ops-toolbar"><span><b className="status-dot"/> NORTHLINE / SAMPLE OPERATIONS DESK</span><span>CASE EX-1042</span></div>
-      <div className="ops-layout">
-        <aside className="ops-context" aria-label="Sample case records">
-          <div className="ops-record-heading"><span>01 / INCOMING REQUEST</span><span className="ops-badge">Delivery exception</span></div>
-          <h3>“Can you check my delivery?”</h3><p className="ops-sender">Jamie Chen · Fictional customer</p>
-          <blockquote>My order was due Wednesday, but the tracking hasn’t moved. Can you let me know when it will arrive?</blockquote>
-          <div className="ops-source"><span className="ops-record-heading">ORDER RECORD / CRM-1042</span><dl><div><dt>Order</dt><dd>#1042 · Desk accessories</dd></div><div><dt>Original delivery</dt><dd>Wednesday, 21 October</dd></div><div><dt>Case owner</dt><dd>Customer operations</dd></div></dl></div>
-          {step >= 1 ? <div className="ops-source ops-source-highlight"><span className="ops-record-heading">SHIPMENT RECORD / SHP-8821</span><dl><div><dt>Latest scan</dt><dd>Regional sorting hub</dd></div><div><dt>Exception</dt><dd>Missed linehaul connection</dd></div><div><dt>Revised estimate</dt><dd>Friday, 23 October</dd></div></dl></div> : <div className="ops-pending">↳ Shipment context appears during investigation.</div>}
-        </aside>
-        <div className="ops-action">
-          <div className="ops-action-header"><span className="ops-record-heading">02 / PROPOSED CUSTOMER UPDATE</span><span className="ops-badge">{approved && step >= 2 ? 'Approved in simulation' : step >= 2 ? 'Draft · Not sent' : 'Awaiting context'}</span></div>
-          {step >= 2 ? <div className="ops-message"><p className="ops-subject">Re: Delivery update for order #1042</p>{revision && step === 2 ? <label className="draft-editor">Edit the sample response<textarea aria-label="Edit the sample response" value={draft} onChange={e => { setDraft(e.target.value); setApproved(false); setNavigationError('') }} rows="8"/></label> : <div className="draft-content">{draft}</div>}<div className="ops-citations">SOURCE RECORDS <span>CRM-1042</span><span>SHP-8821</span></div></div> : <div className="ops-empty"><span aria-hidden="true">↳</span><h3>Check the records first.</h3><p>Play the sample or use “Next step” to investigate the enquiry and prepare a response.</p></div>}
-          <div className={`ops-gate ${step >= 3 && !approved ? 'ops-gate-active' : ''}`}>
-            <div><span className="ops-record-heading">HUMAN APPROVAL</span><p>{approved ? 'Sample approval recorded. No message was sent.' : step >= 3 ? 'Review the reply, then use “Approve & complete sample” above.' : 'External communication requires review.'}</p></div>
-
+        <div className="quiet-columns">
+          <div className="quiet-request"><p className="quiet-label">CUSTOMER REQUEST</p><h3>{scenario.request}</h3><p className="quiet-person">Jamie Chen · Sample customer</p><blockquote>{scenario.message}</blockquote><div className="quiet-record"><span>Order #1042 · Desk accessories</span><span>Due Wednesday, 21 October</span></div></div>
+          <div className="quiet-output"><div className="quiet-output-heading"><p className="quiet-label">{step < 2 ? 'NEXT ACTION' : scenario.action.toUpperCase()}</p><span className="quiet-status">{approved && step >= 2 ? 'Approved in sample' : step >= 2 ? 'Not sent' : 'Pending'}</span></div>
+            {step === 4 && approved && <div className="quiet-completion" role="status"><strong>Sample complete</strong><p>The proposed action is approved in this browser. No message, internal request or refund was executed.</p></div>}
+            {step === 3 && !approved && <div className="quiet-checklist"><strong>Before you approve</strong><ul><li>Check the proposed action against the records.</li><li>{scenario.policy}</li></ul></div>}
+            {step === 4 && !approved && <p className="quiet-checklist">This action is awaiting approval. Visiting this stage does not complete it.</p>}
+            {step >= 2 ? editing ? <label className="quiet-editor">Edit proposed action<textarea aria-label="Edit proposed action" rows="9" value={draft} onChange={event => {setDraft(event.target.value);setApproved(false);setError('')}}/></label> : <div className="quiet-draft">{draft}</div> : <div className="quiet-pending"><h3>{step === 0 ? 'Start with the request.' : scenario.route}</h3><p>{step === 0 ? 'Match the request to the order, then check the shipment record.' : scenario.evidence}</p></div>}
           </div>
-          {revision && step === 2 && <p className="ops-revision" role="status">Returned to draft. Edit the sample response above, then continue to review.</p>}
         </div>
+        <div className="quiet-decision" aria-live="polite"><span className="quiet-decision-dot" aria-hidden="true"/><p>{step === 0 ? 'Request received → Check the records' : route}</p><span className="quiet-label">SIMULATED</span></div>
+        <details className="quiet-reason" key={scenarioId}><summary>Why this decision?</summary><div className="quiet-reason-content"><div><h4>What the records show</h4><p>{scenario.evidence}</p><dl><div><dt>Shipment exception</dt><dd>{scenario.record}</dd></div><div><dt>Delivery estimate</dt><dd>{scenario.estimate}</dd></div></dl></div><div><h4>The review rule</h4><p>{scenario.policy}</p><h4>Where Jev fits</h4><p>A live implementation could use Jev to classify the request and choose a route, with a separate language model drafting the text. This sample uses predefined decisions and text; Jev is not connected. <a href="https://typesafe.ai/" target="_blank" rel="noreferrer">About Jev ↗</a></p></div></div></details>
+        {error && <p className="quiet-error" role="alert">{error}</p>}
+        <div className="quiet-footer"><div className="quiet-review-status" aria-live="polite"><span>{approved && step >= 2 ? 'Approval recorded. Nothing was sent.' : waitingForApproval ? 'Your review is needed before this action can proceed.' : 'A person reviews the proposed action before it proceeds.'}</span>{step >= 2 && <button type="button" className="quiet-edit" onClick={() => {setEditing(value => !value);setApproved(false);setStep(2)}}>{editing ? 'Finish editing' : 'Edit proposed action'}</button>}</div><button type="button" className="button primary" onClick={primaryAction} disabled={!draft.trim() && step >= 2}>{step < 2 ? step === 0 ? 'Check records →' : 'View proposed action →' : step === 2 ? 'Review action →' : approved ? 'Try again ↺' : 'Approve sample action →'}</button></div>
       </div>
-      <div className="ops-event" aria-live="polite"><span className="status-dot"/><span>{current.event}</span><span>{String(step + 1).padStart(2, '0')} / 05</span></div>
-      {step === 4 && approved && <details className="ops-history"><summary>View sample action history</summary><ol>{steps.map((s, i) => <li key={s.title}><span>0{i + 1} / {s.title}</span>{s.event}</li>)}</ol><p>Illustrative sequence from this walkthrough. No external actions were executed.</p></details>}
     </div>
-      </div>
-    </div>
-    <p className="demo-production-note"><strong>For a live implementation:</strong> connect your systems, define access and approval rules, evaluate model outputs, and set up monitoring. This sample illustrates the workflow only.</p>
+    <p className="quiet-disclosure">Interactive concept · Fictional records · Simulated decisions; no live Jev integration or external actions.</p>
   </section>
 }

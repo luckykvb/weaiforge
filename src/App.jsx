@@ -2,6 +2,7 @@ import { useState } from 'react'
 import logo from './assets/logo.png'
 import CalendlyBooking, { getCalendlyUrl } from './components/CalendlyBooking'
 import OperationsShowcase from './components/OperationsShowcase'
+import JevSection from './components/JevSection'
 import ThemeSwitcher from './components/ThemeSwitcher'
 import { siteConfig } from './siteConfig'
 
@@ -18,38 +19,35 @@ const faqs = [
 ]
 
 function Contact() {
-  const [prepared, setPrepared] = useState(false)
+  const [status, setStatus] = useState('idle')
+  const enabled = import.meta.env.VITE_CONTACT_ENABLED === 'true'
+  async function submit(event) {
+    event.preventDefault()
+    const form = event.currentTarget
+    setStatus('sending')
+    try {
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) })
+      if (!response.ok) throw new Error('Submission failed')
+      setStatus('sent')
+      form.reset()
+    } catch { setStatus('error') }
+  }
   return <section id="contact" className="contact-section page-gutter">
-    <div className="contact-copy">
-      <p className="eyebrow">GET IN TOUCH</p>
-      <h2>Discuss your workflow.</h2>
-      <p>Tell us what your team does manually, which tools it uses, and where the process gets stuck. That is enough to start a conversation.</p>
-      <a className="contact-email" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
-      <CalendlyBooking compact/>
+    <div className="contact-copy"><p className="eyebrow">START A CONVERSATION</p><h2>Where does your<br/>team get stuck?</h2><p>Bring one recurring request, the tools your team checks, and the part that takes too long. We’ll discuss whether a scoped prototype makes sense.</p><a className="contact-email" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></div>
+    <div className="contact-options"><CalendlyBooking compact/>
+      {enabled ? <form onSubmit={submit} aria-busy={status === 'sending'}><h3>Send an enquiry</h3><div className="form-pair"><label>Your name<input required maxLength="100" name="name" autoComplete="name"/></label><label>Work email<input required type="email" maxLength="254" name="email" autoComplete="email"/></label></div><label>What do you need?<select name="interest"><option>Discovery and prototype</option><option>Workflow development</option><option>Embedded AI engineering</option></select></label><label>Describe the workflow<textarea required minLength="10" maxLength="5000" name="message" rows="4"/></label><label className="contact-trap" aria-hidden="true">Leave this blank<input name="website" tabIndex={-1} autoComplete="off"/></label><button className="button primary" disabled={status === 'sending'} type="submit">{status === 'sending' ? 'Sending…' : 'Send enquiry'}</button><p className="form-note" role="status">{status === 'sent' ? 'Enquiry received. Thank you for sharing your workflow.' : status === 'error' ? 'Your enquiry was not sent. Please try again or email us directly.' : 'Please omit passwords, customer records and confidential information.'}</p></form> : <div className="email-invitation"><h3>Prefer to write?</h3><p>Email a short description of the process and the systems involved. No presentation needed.</p><a className="text-link" href={`mailto:${siteConfig.contactEmail}?subject=Workflow%20enquiry`}>Email WeAIForge ↗</a><p className="email-invitation-note">Opens your email app. You review and send the message there.</p></div>}
     </div>
-    <form onSubmit={e => {
-      e.preventDefault()
-      const f = new FormData(e.currentTarget)
-      window.location.href = `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(`${f.get('interest')} enquiry from ${f.get('name')}`)}&body=${encodeURIComponent(`Name: ${f.get('name')}\nEmail: ${f.get('email')}\nInterest: ${f.get('interest')}\n\n${f.get('message')}`)}`
-      setPrepared(true)
-    }}>
-      <div className="form-pair"><label>Your name<input required name="name" autoComplete="name" placeholder="Alex Taylor"/></label><label>Work email<input required type="email" name="email" autoComplete="email" placeholder="alex@company.com"/></label></div>
-      <label>What do you need?<select name="interest"><option>Discovery and prototype</option><option>Workflow development</option><option>Embedded AI engineering</option></select></label>
-      <label>Describe the workflow<textarea required name="message" rows="4" placeholder="For example: our operations team checks three systems before replying to each delivery enquiry."/></label>
-      <button className="button primary" type="submit">Prepare email enquiry</button>
-      <p className="form-note" role="status">{prepared ? 'Your draft is ready in your email app. Send it there to contact us.' : 'Opens a draft in your email app. You review and send it.'}</p>
-    </form>
   </section>
 }
 
 function StartingEngagement({ bookingTarget }) {
   return <section id="start" className="starting-section page-gutter">
-    <div className="starting-intro"><p className="eyebrow">DISCOVERY & PROTOTYPE</p><h2>Start with<br/>one workflow.</h2><p>Test a specific opportunity before committing to a larger build. We agree the scope, required inputs, and success criteria up front.</p><a className="button primary" href={bookingTarget}>Discuss your workflow</a><p className="engagement-note">Timeline and fee are agreed after an initial conversation.</p></div>
-    <div className="deliverables-panel"><h3>What you receive</h3><ol className="deliverables-list">
+    <div className="starting-intro"><p className="eyebrow">DISCOVERY & PROTOTYPE</p><h2>Start with<br/>one workflow.</h2><p>For operations teams with one repeatable process to improve. We agree the task, sample data and success criteria before building.</p><a className="button primary" href={bookingTarget}>Discuss your workflow</a><p className="engagement-note">First conversation: understand the process, check fit, and agree what a useful test would show. Scope, fee and timing follow in a written proposal.</p></div>
+    <div className="deliverables-panel"><h3>A defined first engagement</h3><ol className="deliverables-list">
       <li><h4>A map of the current process</h4><p>Steps, systems, bottlenecks, and the points that need human judgement.</p></li>
       <li><h4>A working prototype</h4><p>One scoped workflow using an agreed sample of data.</p></li>
       <li><h4>A feasibility assessment</h4><p>Findings on quality, limitations, integration requirements, and estimated operating cost.</p></li>
-      <li><h4>A production proposal</h4><p>A separate scope covering integrations, evaluation, deployment, ownership, and support.</p></li>
+      <li><h4>A production proposal</h4><p>A separate scope for integrations, evaluation, deployment and support. Production rollout is a separate decision.</p></li>
     </ol><p className="prototype-inputs"><strong>What we need from you:</strong> a workflow owner, a walkthrough of the current process, and representative sample data you are able to share.</p></div>
   </section>
 }
@@ -64,26 +62,32 @@ function EngineeringDetails({ bookingTarget }) {
   </>
 }
 
+function PrototypeEvidence() {
+  return <section id="work" className="prototype-evidence page-gutter"><div><p className="eyebrow">INSIDE THE EXAMPLE</p><h2>What this prototype<br/>actually demonstrates.</h2><p>An original browser prototype using fictional operations records. A small, inspectable example of the decisions an implementation needs to handle.</p><span className="project-kind">Self-directed concept · No client deployment</span></div><div className="prototype-findings"><article><h3>One request, different routes</h3><p>A delivery estimate supports a customer update. Missing tracking produces an investigation request. A refund request goes to a person without promising eligibility.</p></article><article><h3>Approval is a separate action</h3><p>Opening the final stage does not approve anything. Editing the proposed action clears its approval; switching scenarios starts a fresh sample.</p></article><details><summary>Implementation choices and limits</summary><p>React manages the scenario, draft and approval state. Decisions and text are predefined, not model-generated. This tests the interaction and proposed rules; it does not measure AI accuracy or prove production integration.</p><p>A production evaluation would need representative cases, expected routes, failure handling, access controls, integration tests and measured operating cost.</p></details></div></section>
+}
+
 export default function App() {
   const [menu, setMenu] = useState(false)
   const detail = location.pathname.includes('forward-deployed') ? 'engineering' : location.pathname.includes('ai-agents') ? 'agents' : null
   const home = detail ? '/' : ''
   const bookingTarget = getCalendlyUrl(siteConfig.calendlyUrl) ? '#book' : '#contact'
   return <div className="forge"><a className="skip-link" href="#main">Skip to content</a>
-    <header className="site-header page-gutter"><Mark/><nav className={menu ? 'open' : ''} aria-label="Primary">{[['Example workflow', '#demo'], ['Start a project', '#start'], ['How we work', '#approach']].map(([label,url]) => <a key={url} href={home+url} onClick={() => setMenu(false)}>{label}</a>)}</nav><a className="header-cta" href={bookingTarget}>Discuss your workflow</a><ThemeSwitcher/><button className="menu-toggle" aria-expanded={menu} aria-label="Toggle navigation" onClick={() => setMenu(!menu)}>{menu ? 'Close' : 'Menu'} <span>{menu ? '−' : '+'}</span></button></header>
+    <header className="site-header page-gutter"><Mark/><nav className={menu ? 'open' : ''} aria-label="Primary">{[['Example workflow', '#demo'], ['Start a project', '#start'], ['Our approach', '#approach']].map(([label,url]) => <a key={url} href={home+url} onClick={() => setMenu(false)}>{label}</a>)}</nav><a className="header-cta" href={bookingTarget}>Discuss your workflow</a><ThemeSwitcher/><button className="menu-toggle" aria-expanded={menu} aria-label="Toggle navigation" onClick={() => setMenu(!menu)}>{menu ? 'Close' : 'Menu'} <span>{menu ? '−' : '+'}</span></button></header>
     <main id="main">
       <section className="studio-hero page-gutter">
         <div className="studio-hero-copy"><p className="eyebrow">WEAIFORGE / AI ENGINEERING STUDIO</p>
-          <h1>{detail === 'engineering' ? <>AI engineering<br/>for your<br/><span>existing team.</span></> : detail === 'agents' ? <>AI agents for<br/>the work between<br/><span>your tools.</span></> : <>AI workflows<br/>for work your team<br/><span>still does by hand.</span></>}</h1>
-          <p>{detail === 'engineering' ? 'Add hands-on support for agent development, integrations, and evaluation. Work within your tools, priorities, and delivery process.' : 'We design and build workflows that turn incoming requests, documents, and business information into reviewed, actionable outputs.'}</p>
+          <h1>{detail === 'engineering' ? <>AI engineering<br/>for your<br/><span>existing team.</span></> : detail === 'agents' ? <>AI agents for<br/>the work between<br/><span>your tools.</span></> : <>Customer requests.<br/>Connected records.<br/><span>Less chasing.</span></>}</h1>
+          <p>{detail === 'engineering' ? 'Add hands-on support for agent development, integrations, and evaluation. Work within your tools, priorities, and delivery process.' : 'We help operations teams turn customer requests into informed replies and clear handoffs—by connecting the records scattered across their tools.'}</p>
           <div className="studio-hero-actions"><a className="button primary" href={bookingTarget}>Discuss your workflow</a><a className="text-link" href="#demo">Explore an example <span aria-hidden="true">↓</span></a></div>
         </div>
-        <aside className="workflow-starts" aria-label="Examples of work we can help with"><p className="eyebrow">WHERE WE CAN HELP</p><div><h2>Customer requests</h2><p>Gather the relevant records and prepare a response for your team to review.</p></div><div><h2>Document processing</h2><p>Extract fields, compare them against existing records, and flag exceptions.</p></div><div><h2>Internal knowledge</h2><p>Find information across your sources and prepare answers with references.</p></div></aside>
+        <aside className="workflow-starts" aria-label="Examples of work we can help with"><p className="eyebrow">BUILT AROUND YOUR OPERATIONS</p><div><h2>Request handling</h2><p>Bring order, account and shipment context together before preparing a reply.</p></div><div><h2>Documents and exceptions</h2><p>Check incoming details against your records and surface missing information.</p></div><div><h2>Answers with sources</h2><p>Find the relevant policy or record so your team can check the recommendation.</p></div></aside>
       </section>
       {detail === 'engineering' && <EngineeringDetails bookingTarget={bookingTarget}/>}
       {detail === 'agents' && <AgentDetails bookingTarget={bookingTarget}/>}
-      <OperationsShowcase/>
       <StartingEngagement bookingTarget={bookingTarget}/>
+      <OperationsShowcase/>
+      <JevSection/>
+      <PrototypeEvidence/>
       <section id="approach" className="working-section page-gutter"><div><p className="eyebrow">HOW WE WORK</p><h2>Agree what good looks like.<br/>Then test against it.</h2><p>Useful automation needs clear boundaries and a way to check the results. These are part of the scope.</p></div><div className="working-practices"><article><h3>Test on representative cases</h3><p>Agree the inputs, expected outputs, and failure cases. Review quality and estimated cost before expanding the workflow.</p></article><article><h3>Keep actions within agreed limits</h3><p>Define what the system can access, what it can propose, and which actions need approval or escalation.</p></article><article><h3>Make the system maintainable</h3><p>Agree deployment, code ownership, operating documentation, and handover so your team understands what it receives.</p></article></div></section>
       {detail !== 'engineering' && <section id="engineering" className="embedded-note page-gutter"><div><h2>Already have a technical team?</h2><p>We also provide embedded AI engineering for teams that need help implementing an existing roadmap.</p></div><a className="text-link" href="/forward-deployed-engineering">About embedded engineering <span aria-hidden="true">↗</span></a></section>}
       <section className="faq-section page-gutter"><div><p className="eyebrow">BEFORE YOU START</p><h2>Common questions</h2></div><div>{faqs.map(([q,a]) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section>
