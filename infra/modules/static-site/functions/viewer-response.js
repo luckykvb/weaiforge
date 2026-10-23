@@ -8,7 +8,7 @@
 
 var CSP = [
   "default-src 'self'",
-  "script-src 'self' 'sha256-0sTUpeV9Pg3lvnuMW0Xhw3Zxv07Ey+0EqaFr8vd59Ew='",
+  "script-src 'self' 'sha256-7PLvr3KkzWBoJK0cM9UoE7K3IzdReyukqVzwsY23fpQ='",
   "style-src 'self' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data:",
