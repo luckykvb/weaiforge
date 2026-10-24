@@ -75,7 +75,7 @@ export default function App() {
     <header className="site-header page-gutter"><Mark/><nav className={menu ? 'open' : ''} aria-label="Primary">{[['Example workflow', '#demo'], ['Start a project', '#start'], ['Our approach', '#approach']].map(([label,url]) => <a key={url} href={home+url} onClick={() => setMenu(false)}>{label}</a>)}</nav><a className="header-cta" href={bookingTarget}>Discuss your workflow</a><ThemeSwitcher/><button className="menu-toggle" aria-expanded={menu} aria-label="Toggle navigation" onClick={() => setMenu(!menu)}>{menu ? 'Close' : 'Menu'} <span>{menu ? '−' : '+'}</span></button></header>
     <main id="main">
       <section className="studio-hero page-gutter">
-        <div className="studio-hero-copy"><p className="eyebrow">WEAIFORGE / AI ENGINEERING STUDIO</p>
+        <div className="studio-hero-copy"><p className="eyebrow studio-hero-brand">WeAIForge / AI engineering studio</p>
           <h1>{detail === 'engineering' ? <>AI engineering<br/>for your<br/><span>existing team.</span></> : detail === 'agents' ? <>AI agents for<br/>the work between<br/><span>your tools.</span></> : <>Customer requests.<br/>Connected records.<br/><span>Less chasing.</span></>}</h1>
           <p>{detail === 'engineering' ? 'Add hands-on support for agent development, integrations, and evaluation. Work within your tools, priorities, and delivery process.' : 'We help operations teams turn customer requests into informed replies and clear handoffs by connecting the records scattered across their tools.'}</p>
           <div className="studio-hero-actions"><a className="button primary" href={bookingTarget}>Discuss your workflow</a><a className="text-link" href="#demo">Explore an example <span aria-hidden="true">↓</span></a></div>

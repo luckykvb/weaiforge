@@ -2,7 +2,7 @@
 // Swap these values to rebrand the whole site.
 
 export const siteConfig = {
-  brand: 'weaiforge',
+  brand: 'WeAIForge',
   // One-line positioning used in a few meta spots.
   tagline: 'Agentic AI & forward-deployed engineering',
 
