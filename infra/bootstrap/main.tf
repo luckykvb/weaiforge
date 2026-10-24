@@ -44,7 +44,13 @@ locals {
 
   account_id   = data.aws_caller_identity.current.account_id
   state_bucket = "${var.project}-tfstate-${local.account_id}-${var.region}"
-  repo_sub     = "repo:${var.github_repository}"
+  # Immutable subject claims put the numeric IDs in the token's sub; without them
+  # AssumeRoleWithWebIdentity is denied even though the repo name matches.
+  repo_owner = split("/", var.github_repository)[0]
+  repo_name  = split("/", var.github_repository)[1]
+  repo_sub = var.github_owner_id == null || var.github_repository_id == null ? "repo:${var.github_repository}" : (
+    "repo:${local.repo_owner}@${var.github_owner_id}/${local.repo_name}@${var.github_repository_id}"
+  )
 
   # Names the prod stack creates (envs/prod/main.tf); CI roles are scoped to them.
   site_bucket      = "${var.project}-site-prod-${local.account_id}"
