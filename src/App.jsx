@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import logo from './assets/logo.png'
 import CalendlyBooking, { getCalendlyUrl } from './components/CalendlyBooking'
-import OperationsShowcase from './components/OperationsShowcase'
 import JevSection from './components/JevSection'
+import OperationsShowcase from './components/OperationsShowcase'
 import ThemeSwitcher from './components/ThemeSwitcher'
 import { siteConfig } from './siteConfig'
 
@@ -77,7 +77,7 @@ export default function App() {
       <section className="studio-hero page-gutter">
         <div className="studio-hero-copy"><p className="eyebrow">WEAIFORGE / AI ENGINEERING STUDIO</p>
           <h1>{detail === 'engineering' ? <>AI engineering<br/>for your<br/><span>existing team.</span></> : detail === 'agents' ? <>AI agents for<br/>the work between<br/><span>your tools.</span></> : <>Customer requests.<br/>Connected records.<br/><span>Less chasing.</span></>}</h1>
-          <p>{detail === 'engineering' ? 'Add hands-on support for agent development, integrations, and evaluation. Work within your tools, priorities, and delivery process.' : 'We help operations teams turn customer requests into informed replies and clear handoffs—by connecting the records scattered across their tools.'}</p>
+          <p>{detail === 'engineering' ? 'Add hands-on support for agent development, integrations, and evaluation. Work within your tools, priorities, and delivery process.' : 'We help operations teams turn customer requests into informed replies and clear handoffs by connecting the records scattered across their tools.'}</p>
           <div className="studio-hero-actions"><a className="button primary" href={bookingTarget}>Discuss your workflow</a><a className="text-link" href="#demo">Explore an example <span aria-hidden="true">↓</span></a></div>
         </div>
         <aside className="workflow-starts" aria-label="Examples of work we can help with"><p className="eyebrow">BUILT AROUND YOUR OPERATIONS</p><div><h2>Request handling</h2><p>Bring order, account and shipment context together before preparing a reply.</p></div><div><h2>Documents and exceptions</h2><p>Check incoming details against your records and surface missing information.</p></div><div><h2>Answers with sources</h2><p>Find the relevant policy or record so your team can check the recommendation.</p></div></aside>

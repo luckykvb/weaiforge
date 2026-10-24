@@ -52,6 +52,7 @@ export function getModePreference() {
 
 export function resolveMode(preference) {
   if (preference === 'light' || preference === 'dark') return preference
+  if (typeof window === 'undefined') return 'light' // build-time prerender
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
