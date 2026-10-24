@@ -8,8 +8,8 @@ alert_email       = "samba@weaiforge.com"
 #   1. both false  -> zone answers exactly like GoDaddy; then switch NS at GoDaddy
 #   2. site_enabled -> bucket, certificate, CloudFront, WAF, Free plan; first deploy
 #   3. cutover      -> apex/www move to CloudFront, CAA added
-site_enabled = false
-cutover      = false
+site_enabled = true
+cutover      = true
 
 pricing_plan_tier = "FREE"
 

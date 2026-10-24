@@ -76,6 +76,24 @@ It must report **0 differences**.
    `distribution_domain_name` from the outputs into the `production` environment
    variables (`SITE_BUCKET`, `CF_DISTRIBUTION_ID`; leave `SITE_URL` until cutover).
 
+   > **SCP workaround (`p-jsyhff8w` denies `s3:PutBucketPublicAccessBlock`).** A new
+   > bucket already gets all four Block Public Access flags on by default, so a
+   > plain apply fails trying to re-set them. Apply the bucket and certificate
+   > first, import the default BPA, then apply the rest — the imported settings
+   > match the config, so the full apply shows no change for it:
+   >
+   > ```bash
+   > cd infra/envs/prod   # AWS_PROFILE=weaiforge, var-file on every command
+   > terraform apply -var-file=prod.tfvars -target='module.static_site[0].aws_s3_bucket.site'
+   > terraform apply -var-file=prod.tfvars -target='module.static_site[0].aws_acm_certificate.site'
+   > terraform import -var-file=prod.tfvars 'module.static_site[0].aws_s3_bucket_public_access_block.site' <site_bucket>
+   > terraform apply -var-file=prod.tfvars
+   > ```
+   >
+   > (The cert is applied first so the ACM-validation `for_each` resolves; without
+   > it the import's post-plan aborts on an unknown-value `for_each`.) The same
+   > import is needed for the log bucket if `access_logs_enabled = true`.
+
 ## 5. First deploy and pre-cutover test
 
 Run the **Site** workflow (`workflow_dispatch`), or push any site change. It
